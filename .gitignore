@@ -11,7 +11,15 @@
 *.so.*
 *.dylib
 
+# OS generated files
+*.swp
+*.swo
+
 # Executables
 *.exe
 *.out
 *.app
+
+# Arquivos gerais
+todo.txt
+Trabalho.txt

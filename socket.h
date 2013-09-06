@@ -15,8 +15,9 @@ int client_socket(int port, char *host) {
    // Preenche as informações do servidor
    server.sin_family = AF_INET;
    server.sin_port = htons(port);
-   server.sin_addr.s_addr = inet_addr(host);
-   bzero(&(server.sin_zero), 8);
+   //server.sin_addr.s_addr = inet_addr(host);
+   inet_aton(host, &(server.sin_addr));
+   memset(&(server.sin_zero), '\0', 8);
 
    puts("INÍCIO CLIENT_SOCKET");
    printf("%15d: socket_client \n%15d: port \n%15s: host \n", socket_client, port, host);
@@ -28,7 +29,7 @@ int client_socket(int port, char *host) {
    printf("%15d: size_sockaddr\n", size_sockaddr);
 
    // Cria o socket e trata os erros
-   socket_client = socket(AF_INET, SOCK_STREAM, 0);
+   socket_client = socket(PF_INET, SOCK_STREAM, 0);
    if (socket_client < 0) {
       perror("socket");
       exit(errno);
@@ -56,7 +57,7 @@ int server_socket(int port, int backlog) {
    server.sin_family = AF_INET;
    server.sin_port = htons(port);
    server.sin_addr.s_addr = INADDR_ANY;
-   bzero(&(server.sin_zero), 8);
+   memset(&(server.sin_zero), '\0', 8);
 
    puts("INÍCIO SERVER_SOCKET");
    printf("%15d: socket_server \n%15d: port \n%15d: backlog \n", socket_server, port, backlog);
@@ -68,7 +69,7 @@ int server_socket(int port, int backlog) {
    printf("%15d: size_sockaddr\n", size_sockaddr);
 
    // Cria o socket e trata os erros
-   socket_server = socket(AF_INET, SOCK_STREAM, 0);
+   socket_server = socket(PF_INET, SOCK_STREAM, 0);
    if (socket_server < 0) {
       perror("socket");
       exit(errno);
@@ -169,33 +170,3 @@ void send_socket(int sock, char *buffer) {
    puts("FIM SEND_SOCKET\n");
 
 }
-
-/* Criar uma nova thread
- * Thread herda socket_local e socket_remoto
- * O contador de referência de socket_local e socket_remoto são incrementados de 1 para 2
- * Essa thread deve fechar o socket_local reduzindo seu contador de referência para 1
- * Dessa maneira o socket_local fica dependente apenas da thread original
- * A thread original deve fechar o socket_remoto reduzindo seu contador também para 1
- * Dessa maneira o socket_remoto fica dependente apenas da thread nova
- */
-
-/*
-      if ((pid = fork()) < 0) {
-         perror("fork");
-         exit(errno);
-      }
-      else if (!pid) {
-         if (send(socket_remoto, "Seja bem vindo!\n", 16, 0) < 0) {
-            perror("send");
-            close(socket_remoto);
-            exit(0);
-         }
-         break;
-      }
-*/
-
-
-
-
-
-

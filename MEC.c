@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "aplication.h"
+#include "application.h"
 #include "socket.h"
 #include "specification.h"
 #include "theory.h"
@@ -11,21 +11,20 @@
 int main(void) {
    int socket_server, socket_client;
    int i = 0; // Teste
-   char buffer[MAXDATASIZE];
-/* Specification *provisioned;
+   char buffer_recv[MAXDATASIZE];
+/*   Specification *provisioned;
 
-   provisioned = (Specification*)malloc(sizeof(Specification));
-   provisioned->mips = 1000;
-   provisioned->ant = 962072674304001;
-   for ( i = 0 ; i < 3000 ; i++ )
+   provisioned = (Specification *)malloc(sizeof(Specification));
+   provisioned->mips = htonl(200000);
+   provisioned->ant = htons(8520);
+   for ( i = 0 ; i < 301 ; i++ )
       provisioned->text[i] = 'a';
-   provisioned->text[i] = '\0';
-   printf("%d-%lld\n", provisioned->mips, provisioned->ant);
-   //puts(provisioned->text);
-   //printf("%s\n", (char*)provisioned);
+   provisioned->text[i-1] = '\0';
+   printf("%d | %hd\n", provisioned->mips, provisioned->ant);
+   puts(provisioned->text);
+   //printf("%s\n", (unsigned char *)provisioned);
    //puts((char*)provisioned);
 */
-
    socket_server = server_socket(PORT_LISTEN, BACKLOG);
 
    i = 0;
@@ -36,8 +35,8 @@ int main(void) {
 
       // iniciar a comunicação
 
-      recv_socket(socket_client, buffer);
-      if (!strcmp(buffer, "request")) {
+      recv_socket(socket_client, buffer_recv);
+      if (!strcmp(buffer_recv, "request")) {
 
          //receber struct Specification
          //chamar o Load Division Algorithm - ld_algorithm()
@@ -45,7 +44,7 @@ int main(void) {
          //send_socket(socket_client, provisioned->text);
          //enviar struct Specification com recursos provisionados
 
-         recv_socket(socket_client, buffer);
+         recv_socket(socket_client, buffer_recv);
          //se for o ack, preenche Tabela de Controle
          //envia aplicação - cria aqui as threads
       }

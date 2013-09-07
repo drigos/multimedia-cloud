@@ -1,6 +1,8 @@
 #ifndef PNR
 #define PNR
 
+#include "specification.h"
+
 #define REQUEST 1
 #define RESPONSE 2
 #define ACK 3
@@ -26,18 +28,14 @@ int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option)
          strcat(buffer, "\r\n\r\n");
 
          break;
-
       case RESPONSE:
          serialize_hwspec(string_hwspec, hwspec);
 
          strcat(buffer, string_hwspec); // ptr - string_hwspec = strlen(string_hwspec)
          strcat(buffer, "\r\n\r\n");
-
          break;
-
       case ACK:
          break;
-
       case NACK:
          break;
    }
@@ -47,7 +45,9 @@ int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option)
 
 int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
 	char *pch;
-	int flag = buffer[0];
+	int flag;
+
+   flag = buffer[0];
 	buffer += 3;
 	
 	switch(flag) {
@@ -63,7 +63,7 @@ int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
 			break;
 		case RESPONSE:
 			pch = strstr(buffer, "\r\n");
-			pch = "\0"
+			pch = "\0";
 			hwspec = deserialize_hwspec(buffer);
 			break;
 		case ACK:

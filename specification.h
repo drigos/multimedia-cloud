@@ -42,6 +42,8 @@ char* serialize_hwspec(char *buffer, HWSpecification *hwspec) {
 
 char* deserialize_int(char *buffer, int *value);
 char* deserialize_char(char *buffer, char *value);
-HWSpecification* deserialize_hwspec(char *buffer);
+HWSpecification* deserialize_hwspec(char *buffer) {
+   return NULL;
+}
 
 #endif

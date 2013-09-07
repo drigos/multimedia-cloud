@@ -45,6 +45,34 @@ int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option)
    return 0;
 }
 
-void decapsulation();
+int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
+	char *pch;
+	int flag = buffer[0];
+	buffer += 3;
+	
+	switch(flag) {
+		case REQUEST:
+			pch = strstr(buffer, "\r\n");
+			pch = "\0";
+			hwspec = deserialize_hwspec(buffer);
+			
+			buffer = pch+2;
+			pch = strstr(buffer, "\r\n");
+			pch = "\0";
+			strcpy(option, buffer);
+			break;
+		case RESPONSE:
+			pch = strstr(buffer, "\r\n");
+			pch = "\0"
+			hwspec = deserialize_hwspec(buffer);
+			break;
+		case ACK:
+			break;
+		case NACK:
+			break;
+	}
+	
+	return flag;
+}
 
 #endif

@@ -18,7 +18,7 @@ void get_hwspec(HWSpecification *hwspec) {
    //64-16424-4204586
 }
 
-unsigned char* serialize_int(unsigned char *buffer, int value) {
+char* serialize_int(char *buffer, int value) {
    buffer[0] = value >> 24;
    buffer[1] = value >> 16;
    buffer[2] = value >> 8;
@@ -27,13 +27,13 @@ unsigned char* serialize_int(unsigned char *buffer, int value) {
    return buffer + 4;
 }
 
-unsigned char* serialize_char(unsigned char *buffer, char value) {
+char* serialize_char(char *buffer, char value) {
    buffer[0] = value;
 
    return buffer + 1;
 }
 
-unsigned char* serialize_hwspec(unsigned char *buffer, HWSpecification *hwspec) {
+char* serialize_hwspec(char *buffer, HWSpecification *hwspec) {
    buffer = serialize_int(buffer, hwspec->mips);
 
    return buffer;

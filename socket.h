@@ -19,14 +19,14 @@ int client_socket(int port, char *host) {
    inet_aton(host, &(server.sin_addr));
    memset(&(server.sin_zero), '\0', 8);
 
-   puts("INÍCIO CLIENT_SOCKET");
-   printf("%15d: socket_client \n%15d: port \n%15s: host \n", socket_client, port, host);
-   printf("%15d: sin_family \n%15d: sin_port \n%15d: s_addr \n", server.sin_family, server.sin_port, server.sin_addr.s_addr);
+//   puts("INÍCIO CLIENT_SOCKET");
+//   printf("%15d: socket_client \n%15d: port \n%15s: host \n", socket_client, port, host);
+//   printf("%15d: sin_family \n%15d: sin_port \n%15d: s_addr \n", server.sin_family, server.sin_port, server.sin_addr.s_addr);
 
    // Define o tamanho da struct sockaddr para usar no connect()
    size_sockaddr = sizeof(struct sockaddr);
 
-   printf("%15d: size_sockaddr\n", size_sockaddr);
+//   printf("%15d: size_sockaddr\n", size_sockaddr);
 
    // Cria o socket e trata os erros
    socket_client = socket(PF_INET, SOCK_STREAM, 0);
@@ -35,7 +35,7 @@ int client_socket(int port, char *host) {
       exit(errno);
    }
 
-   printf("%15d: socket_client após socket()\n", socket_client);
+//   printf("%15d: socket_client após socket()\n", socket_client);
 
    // Coneta ao server e trata os erros
    if (connect(socket_client, (struct sockaddr *)&server, size_sockaddr) < 0) {
@@ -43,7 +43,7 @@ int client_socket(int port, char *host) {
       exit(errno);
    }
 
-   puts("FIM CLIENT_SOCKET\n");
+//   puts("FIM CLIENT_SOCKET\n");
 
    return socket_client;
 }
@@ -59,14 +59,14 @@ int server_socket(int port, int backlog) {
    server.sin_addr.s_addr = INADDR_ANY;
    memset(&(server.sin_zero), '\0', 8);
 
-   puts("INÍCIO SERVER_SOCKET");
-   printf("%15d: socket_server \n%15d: port \n%15d: backlog \n", socket_server, port, backlog);
-   printf("%15d: sin_family \n%15d: sin_port \n%15d: s_addr \n", server.sin_family, server.sin_port, server.sin_addr.s_addr);
+//   puts("INÍCIO SERVER_SOCKET");
+//   printf("%15d: socket_server \n%15d: port \n%15d: backlog \n", socket_server, port, backlog);
+//   printf("%15d: sin_family \n%15d: sin_port \n%15d: s_addr \n", server.sin_family, server.sin_port, server.sin_addr.s_addr);
 
    // Define o tamanho da struct sockaddr para usar no connect()
    size_sockaddr = sizeof(struct sockaddr);
 
-   printf("%15d: size_sockaddr\n", size_sockaddr);
+//   printf("%15d: size_sockaddr\n", size_sockaddr);
 
    // Cria o socket e trata os erros
    socket_server = socket(PF_INET, SOCK_STREAM, 0);
@@ -75,7 +75,7 @@ int server_socket(int port, int backlog) {
       exit(errno);
    }
 
-   printf("%15d: socket_server após socket()\n", socket_server);
+//   printf("%15d: socket_server após socket()\n", socket_server);
 
    // Associa uma porta ao socket e trata erros
    if (bind(socket_server, (struct sockaddr *)&server, size_sockaddr) < 0) {
@@ -89,7 +89,7 @@ int server_socket(int port, int backlog) {
       exit(errno);
    }
 
-   puts("FIM SERVER_SOCKET\n");
+//   puts("FIM SERVER_SOCKET\n");
 
    return socket_server;
 }
@@ -104,10 +104,10 @@ int accept_socket(int socket_server) {
    // mas ainda sim é necessário esse atribuição
    size_sockaddr = sizeof(struct sockaddr);
 
-   puts("INÍCIO ACCEPT_SOCKET");
-   printf("%15d: socket_server antes do accept()\n", socket_server);
-   printf("%15p: endereço de size_sockaddr\n", &size_sockaddr);
-   printf("%15d: size_sockaddr\n", size_sockaddr);
+//   puts("INÍCIO ACCEPT_SOCKET");
+//   printf("%15d: socket_server antes do accept()\n", socket_server);
+//   printf("%15p: endereço de size_sockaddr\n", &size_sockaddr);
+//   printf("%15d: size_sockaddr\n", size_sockaddr);
 
    // Armazena o descritor da conexão aceita no variável socket_client e trata erros
    socket_client = accept(socket_server, (struct sockaddr *)&client, &size_sockaddr);
@@ -116,8 +116,8 @@ int accept_socket(int socket_server) {
       exit(errno);
    }
 
-   printf("%15d: socket_client após accept()\n", socket_client);
-   puts("FIM ACCEPT_SOCKET\n");
+//   printf("%15d: socket_client após accept()\n", socket_client);
+//   puts("FIM ACCEPT_SOCKET\n");
 
    return socket_client;
 }
@@ -130,8 +130,8 @@ int recv_socket(int sock, char *buffer) {
    //max_data_size = sizeof(buffer);
    max_data_size = MAXDATASIZE;
 
-   puts("INÍCIO RECV_SOCKET");
-   printf("%15d: max_data_size\n", max_data_size);
+//   puts("INÍCIO RECV_SOCKET");
+//   printf("%15d: max_data_size\n", max_data_size);
 
    // Coloca a mensagem na string buffer e trata erros
    // O retorno dessa mensagem é o tamanho da string
@@ -143,9 +143,9 @@ int recv_socket(int sock, char *buffer) {
    // É inserido um caractere terminador após a mensagem
    buffer[num_bytes] = '\0';
 
-   printf("%15d: num_bytes\n", num_bytes);
-   printf("%15s: buffer\n", buffer);
-   puts("FIM RECV_SOCKET\n");
+//   printf("%15d: num_bytes\n", num_bytes);
+//   printf("%15s: buffer\n", buffer);
+//   puts("FIM RECV_SOCKET\n");
 
    return num_bytes;
 }
@@ -156,9 +156,9 @@ void send_socket(int sock, char *buffer) {
    // Atribui à data_size o tamanho da mensagem que será enviada
    data_size = strlen(buffer);
 
-   puts("INÍCIO SEND_SOCKET");
-   printf("%15d: data_size\n", data_size);
-   printf("%15s: buffer\n", buffer);
+//   puts("INÍCIO SEND_SOCKET");
+//   printf("%15d: data_size\n", data_size);
+//   printf("%15s: buffer\n", buffer);
 
    // Envia a mensagem contida na variável buffer para o peer
    if (send(sock, buffer, data_size, 0) < 0) {
@@ -167,6 +167,6 @@ void send_socket(int sock, char *buffer) {
       exit(errno);
    }
 
-   puts("FIM SEND_SOCKET\n");
+//   puts("FIM SEND_SOCKET\n");
 
 }

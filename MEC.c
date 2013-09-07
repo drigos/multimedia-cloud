@@ -36,6 +36,7 @@ int main(void) {
       // iniciar a comunicação
 
       recv_socket(socket_client, buffer_recv);
+      puts(buffer_recv);
       if (!strcmp(buffer_recv, "request")) {
 
          //receber struct Specification

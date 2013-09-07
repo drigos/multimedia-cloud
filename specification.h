@@ -1,14 +1,13 @@
 #ifndef SPECIFICATION
 #define SPECIFICATION
 
-//#include <inttypes.h>
-
 typedef struct hw_specification {
    unsigned int mips;
    long int lint;
    int nint;
    short int sint;
    unsigned char uchar;
+   char string[100];
 } HWSpecification;
 
 /*
@@ -25,8 +24,6 @@ void get_hwspec(HWSpecification *hwspec) {
    /*
    01000001 01000010 01000011 01000100 01000101 01000110 01000111 01001000 - em oporação
    01001000 01000111 01000110 01000101 01000100 01000011 01000010 01000001 - na memória (invertido)
-   soma 4 ao endereço                  01000001 01000010 01000011 01000100 - em oporação
-   soma 4 ao endereço                  01000100 01000011 01000010 01000001 - na memória
    0 - 65                  - A
    1 - 16706               - B
    2 - 4276803             - C
@@ -55,6 +52,7 @@ void get_hwspec(HWSpecification *hwspec) {
    01001111
    7 - 79 - O
    */
+   strcpy(hwspec->string, "PQRSTUVWXYZ");
 }
 
 char* serialize_void(char *buffer, const void *value, int size) {
@@ -135,12 +133,35 @@ char* serialize_char(char *buffer, char value) {
    return buffer + 1;
 }
 */
+//char* serialize_string(char *buffer, void *array, int size_type);
+
+char* serialize_string(char *buffer, char *string) {
+   char c;
+   int size, i;
+   
+   c = '\0';
+   size = sizeof(char);
+   i = 0;
+
+   while (string[i] != c) {
+      //printf("%c - %p\n", string[i], string+i);
+      buffer = serialize_void(buffer, string+i, size);
+
+      i++;
+   }
+
+   return buffer;
+}
+
 char* serialize_hwspec(char *buffer, HWSpecification *hwspec) {
    buffer = serialize_void(buffer, &hwspec->mips, sizeof(hwspec->mips));
    buffer = serialize_void(buffer, &hwspec->lint, sizeof(hwspec->lint));
    buffer = serialize_void(buffer, &hwspec->nint, sizeof(hwspec->nint));
    buffer = serialize_void(buffer, &hwspec->sint, sizeof(hwspec->sint));
    buffer = serialize_void(buffer, &hwspec->uchar, sizeof(hwspec->uchar));
+   printf("%p\n", buffer);
+   buffer = serialize_string(buffer, hwspec->string);
+   printf("%p\n", buffer);
    buffer[0] = '\0';
 
    return buffer;
@@ -174,6 +195,6 @@ HWSpecification* deserialize_hwspec(char *buffer) {
 
 // snprintf para serializar C++11
 // passar estrutura com ponteiro void para send()
-// adaptar funções de serialize para funcionar por tamanho
+// adaptar funções de serialize para funcionar com string
 
 #endif

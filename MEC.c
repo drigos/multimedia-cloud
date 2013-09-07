@@ -11,44 +11,56 @@
 int main(void) {
    int socket_server, socket_client;
    char buffer_recv[MAXDATASIZE], buffer_send[MAXDATASIZE];
-   //HWSpecification *hwspec_client;
+   char app[50];
+   HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
    int i = 0; // Teste
 
+   hwspec_client = (HWSpecification *)malloc(sizeof(HWSpecification));
+   if (hwspec_client == NULL) exit (1);
+   hwspec_provisioned = (HWSpecification *)malloc(sizeof(HWSpecification));
+   if (hwspec_provisioned == NULL) exit (1);
+
+   // Criando o socket
    socket_server = server_socket(PORT_LISTEN, BACKLOG);
 
-   i = 0;
+   i = 0; // Teste
    for (;;) {
-      printf("%d -------------------\n", i++);
+      printf("%d -------------------\n", i++); // Teste
 
+      // Aceitando requisição
       socket_client = accept_socket(socket_server);
 
-      // iniciar a comunicação
-
+      // Início do Three-Way
       recv_socket(socket_client, buffer_recv);
-      puts(buffer_recv);
-      //if (!strcmp(buffer_recv, "request")) {
+      if (decapsulation(buffer_recv, hwspec_client, app) == REQUEST) {
 
-         //receber struct Specification
-         //chamar o Load Division Algorithm - ld_algorithm()
+         //chamar o Load Division Algorithm - ld_algorithm(hwspec_client)
+         //se o retorto for null, não foi possível provisionar - send(NACK), close(socket), continue
 
-         // Teste
-         hwspec_provisioned = (HWSpecification *)malloc(sizeof(HWSpecification));
-         get_hwspec(hwspec_provisioned);
+         get_hwspec(hwspec_provisioned); // Teste
 
+         // Criando mensagem de resposta
          encapsulation(buffer_send, RESPONSE, hwspec_provisioned, NULL);
          send_socket(socket_client, buffer_send);
 
-         recv_socket(socket_client, buffer_recv);
-         //se for o ack, preenche Tabela de Controle
-         //envia aplicação - cria aqui as threads
-      //}
+         //dispara prefetch
 
-      // comunicação iniciada
+         // Aguardando ack
+         recv_socket(socket_client, buffer_recv);
+         
+      // Fim do Three-Way
+
+         //se for recebido o ACK, preenche Tabela de Controle
+         //envia aplicação - cria aqui as threads
+      }
 
       close(socket_client);
    }
+   
    close(socket_server);
+   free(hwspec_client);
+   free(hwspec_provisioned);
 
    return 0;
 }

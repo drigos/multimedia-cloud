@@ -35,10 +35,13 @@ char* serialize_char(char *buffer, char value) {
 
 char* serialize_hwspec(char *buffer, HWSpecification *hwspec) {
    buffer = serialize_int(buffer, hwspec->mips);
+   buffer[0] = '\0';
 
    return buffer;
 }
 
-unsigned char* deserialize_int(unsigned char *buffer, int *value);
+char* deserialize_int(char *buffer, int *value);
+char* deserialize_char(char *buffer, char *value);
+HWSpecification* deserialize_hwspec(char *buffer);
 
 #endif

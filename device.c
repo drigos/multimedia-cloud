@@ -22,12 +22,12 @@ int main(void) {
 
    // iniciar a comunicação
 
+   // Cria mensagem a ser enviada
    encapsulation(buffer_send, REQUEST, hwspec, "to_upper_case");
-
    send_socket(socket_client, buffer_send);
-   //enviar pedido de aplicação
 
    recv_socket(socket_client, buffer_recv);
+   puts(buffer_recv);
    if (!strcmp(buffer_recv, "response")) {
       send_socket(socket_client, "ack");
    }

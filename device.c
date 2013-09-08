@@ -11,28 +11,41 @@ int main(void) {
    //char text_lower[100], text_upper[100];
    int socket_client;
    char buffer_recv[MAXDATASIZE], buffer_send[MAXDATASIZE];
-   HWSpecification *hwspec;
+   HWSpecification *hwspec_client;
+   HWSpecification *hwspec_provisioned;
+   int flag;
    //int i = 0;
 
-   // Criando estrutura para conter informação do hardware
-   hwspec = (HWSpecification *)malloc(sizeof(HWSpecification));
-   get_hwspec(hwspec);
+   hwspec_client = (HWSpecification *)malloc(sizeof(HWSpecification));
+   if (hwspec_client == NULL) exit (1);
+   hwspec_provisioned = (HWSpecification *)malloc(sizeof(HWSpecification));
+   if (hwspec_provisioned == NULL) exit (1);
 
+   // Obtendo informações do hardware local
+   get_hwspec(hwspec_client);
+
+   //fazer escolha aleatória da aplicação
+
+   // Criando o socket
    socket_client = client_socket(PORT_CONNECT, "127.0.0.1");
 
-   // iniciar a comunicação
+   // Início do Three-Way
 
-   encapsulation(buffer_send, REQUEST, hwspec, "to_upper_case");
-
+   // Criando mensagem a ser enviada
+   encapsulation(buffer_send, REQUEST, hwspec_client, "to_upper_case");
    send_socket(socket_client, buffer_send);
-   //enviar pedido de aplicação
 
+   // Aguardando reposta
    recv_socket(socket_client, buffer_recv);
-   if (!strcmp(buffer_recv, "response")) {
-      send_socket(socket_client, "ack");
-   }
+   flag = decapsulation(buffer_recv, hwspec_provisioned, NULL);
 
-   // comunicação iniciada
+   if (flag == RESPONSE) {
+      encapsulation(buffer_send, ACK, NULL, NULL);
+      send_socket(socket_client, buffer_send);
+   }
+   //else if (flag == NACK) { tratamento especial } (socket deve ser fechado)
+
+   // Fim do Three-Way
 
 /*
    printf("Digite o texto para ser convertido: ");
@@ -48,6 +61,8 @@ int main(void) {
 */
 
    close(socket_client);
+   free(hwspec_client);
+   free(hwspec_provisioned);
 
    return 0;
 }

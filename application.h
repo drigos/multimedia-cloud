@@ -1,5 +1,5 @@
-#ifndef APLICATION
-#define APLICATION
+#ifndef APPLICATION
+#define APPLICATION
 
 char to_upper_case(char letter) {
    if (letter >= 97 && letter <= 122)

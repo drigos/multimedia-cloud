@@ -61,6 +61,8 @@ int main(void) {
 */
 
    close(socket_client);
+   free(hwspec_client);
+   free(hwspec_provisioned);
 
    return 0;
 }

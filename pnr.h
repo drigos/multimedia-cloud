@@ -50,13 +50,13 @@ int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
    flag = buffer[0];
 	buffer += 3;
 	
-	switch(flag) {
+	switch (flag) {
 		case REQUEST:
 			pch = strstr(buffer, "\r\n");
 			pch = "\0";
-			hwspec = deserialize_hwspec(buffer);
+			deserialize_hwspec(buffer, hwspec);
 			
-			buffer = pch+2;
+			buffer = pch + 2;
 			pch = strstr(buffer, "\r\n");
 			pch = "\0";
 			strcpy(option, buffer);
@@ -64,7 +64,7 @@ int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
 		case RESPONSE:
 			pch = strstr(buffer, "\r\n");
 			pch = "\0";
-			hwspec = deserialize_hwspec(buffer);
+			deserialize_hwspec(buffer, hwspec);
 			break;
 		case ACK:
 			break;

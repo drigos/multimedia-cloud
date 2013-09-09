@@ -21,7 +21,6 @@ int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option)
    switch (flag) {
       case REQUEST:
          serialize_hwspec(string_hwspec, hwspec);
-
          strcat(buffer, string_hwspec); // ptr - string_hwspec = strlen(string_hwspec)
          strcat(buffer, "\r\n");
          strcat(buffer, option);

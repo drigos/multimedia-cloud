@@ -39,6 +39,8 @@ int main(void) {
    recv_socket(socket_client, buffer_recv);
    flag = decapsulation(buffer_recv, hwspec_provisioned, NULL);
 
+   printf("%d\n", hwspec_provisioned->mips);
+
    if (flag == RESPONSE) {
       encapsulation(buffer_send, ACK, NULL, NULL);
       send_socket(socket_client, buffer_send);

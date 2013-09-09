@@ -3,6 +3,7 @@
 #include "socket.h"
 #include "application.h"
 #include "specification.h"
+#include "provision.h"
 #include "pnr.h"
 
 #define PORT_LISTEN 30000
@@ -14,6 +15,7 @@ int main(void) {
    char app[50];
    HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
+
    int i = 0; // Teste
 
    hwspec_client = (HWSpecification *)malloc(sizeof(HWSpecification));
@@ -38,7 +40,8 @@ int main(void) {
          //chamar o Load Division Algorithm - ld_algorithm(hwspec_client)
          //se o retorto for null, não foi possível provisionar - send(NACK), close(socket), continue
 
-         get_hwspec(hwspec_provisioned); // Teste
+         provision_alg(hwspec_client, hwspec_provisioned, app);
+         printf("%d\n", hwspec_provisioned->mips);
 
          // Criando mensagem de resposta
          encapsulation(buffer_send, RESPONSE, hwspec_provisioned, NULL);

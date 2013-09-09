@@ -47,18 +47,29 @@ int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
 	int flag;
 
    flag = buffer[0];
+//   printf("%d: flag - %p: buffer - %d - *buffer\n", flag, buffer, *buffer);
 	buffer += 3;
+//   printf("%p: buffer - %d: *buffer\n", buffer, *buffer);
 	
 	switch (flag) {
 		case REQUEST:
+//         printf("%p: buffer\n", buffer);
 			pch = strstr(buffer, "\r\n");
-			pch = "\0";
+//         printf("%p: pch - %d: *pch\n", pch, *pch);
+			*pch = '\0';
+//         printf("%p: pch - %d: *pch\n", pch, *pch);
 			deserialize_hwspec(buffer, hwspec);
+//         puts(buffer);
 			
 			buffer = pch + 2;
+//         printf("%p: buffer - %d: *buffer\n", buffer, *buffer);
 			pch = strstr(buffer, "\r\n");
-			pch = "\0";
+//         printf("%p: pch - %d: *pch\n", pch, *pch);
+			*pch = '\0';
+//         printf("%p: pch - %d: *pch\n", pch, *pch);
 			strcpy(option, buffer);
+//         puts(option);
+
 			break;
 		case RESPONSE:
 			pch = strstr(buffer, "\r\n");

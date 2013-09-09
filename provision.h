@@ -9,10 +9,8 @@
 float frame_time = 0.0000002;
 
 void provision_alg (HWSpecification *hwspec_client, HWSpecification *hwspec_provisioned, char *application) {
-   // int expected_mips = 10 * 1.0f/frame_time * (int)application[0];
-   int expected_mips = 10 * 1.0f/frame_time * 1;
-   // int expected_mips = 11790107; //Cenario 2
-   // int expected_mips = 23580213; //Cenario 3
+   int expected_mips = 10 * 1.0f/frame_time * (int)application[0];
+//   printf("%d\n", (int)application[0]);
 
    if (expected_mips <= hwspec_client->mips * 0.7) { //Cenario 1
       hwspec_provisioned->mips = expected_mips * 0.7;

@@ -14,7 +14,11 @@ int main(void) {
    HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
    int flag;
+   char app[2];
    //int i = 0;
+
+   app[0] = DENSITY1;
+   app[1] = '\0';
 
    hwspec_client = (HWSpecification *)malloc(sizeof(HWSpecification));
    if (hwspec_client == NULL) exit (1);
@@ -32,7 +36,7 @@ int main(void) {
    // Início do Three-Way
 
    // Criando mensagem a ser enviada
-   encapsulation(buffer_send, REQUEST, hwspec_client, "to_upper_case");
+   encapsulation(buffer_send, REQUEST, hwspec_client, app);
    send_socket(socket_client, buffer_send);
 
    // Aguardando reposta

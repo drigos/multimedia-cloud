@@ -21,7 +21,10 @@ typedef struct specification {
 // Recebe como parâmetro um ponteiro HWSpecification
 // Rertorno void
 void get_hwspec(HWSpecification *hwspec) {
-   hwspec->mips = 1076374128;
+   // hwspec->mips = 858993459; //Cenario 1
+   // hwspec->mips = 51450129; //Cenario 2
+   hwspec->mips = 16843009; //Cenario 3
+
    hwspec->lint = 4702394921427289928;
    /*
    01000001 01000010 01000011 01000100 01000101 01000110 01000111 01001000 - em oporação
@@ -160,7 +163,7 @@ char* serialize_string(char *buffer, char *string) {
    size = sizeof(char);  // tamanho do elemento da array
 
    while (string[i] != c) {
-      //printf("%c - %p\n", string[i], string+i);
+//      printf("%c - %p\n", string[i], string+i);
       buffer = serialize_void(buffer, string+i, size);
       i++;
    }

@@ -1,3 +1,6 @@
+#ifndef _SOCKET_H_
+#define _SOCKET_H_
+
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
@@ -171,3 +174,5 @@ void send_socket(int sock, char *buffer) {
 //   puts("FIM SEND_SOCKET\n");
 
 }
+
+#endif

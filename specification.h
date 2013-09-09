@@ -1,5 +1,5 @@
-#ifndef SPECIFICATION
-#define SPECIFICATION
+#ifndef _SPECIFICATION_H_
+#define _SPECIFICATION_H_
 
 typedef struct hw_specification {
    unsigned int mips;
@@ -314,9 +314,5 @@ void deserialize_hwspec(char *buffer, HWSpecification *hwspec) {
    //buffer = deserialize_string(buffer, hwspec->string);
    buffer[0] = '\0';
 }
-
-// snprintf para serializar C++11
-// passar estrutura com ponteiro void para send()
-// mudar serialize para switch ao invés de if 
 
 #endif

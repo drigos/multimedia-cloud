@@ -1,5 +1,5 @@
-#ifndef PNR
-#define PNR
+#ifndef _PNR_H_
+#define _PNR_H_
 
 #include "specification.h"
 

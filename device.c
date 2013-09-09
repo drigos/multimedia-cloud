@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "socket.h"
+#include "toolbox.h"
 #include "application.h"
 #include "specification.h"
 #include "pnr.h"
@@ -15,7 +16,7 @@ int main(void) {
    HWSpecification *hwspec_provisioned;
    int flag;
    char app[2];
-   //int i = 0;
+//   int i = 0;
 
    app[0] = DENSITY1;
    app[1] = '\0';
@@ -29,7 +30,11 @@ int main(void) {
    get_hwspec(hwspec_client);
 
    //fazer escolha aleatória da aplicação
-
+/*
+   for (i = 0 ; i < 10 ; i++ ) {
+      printf("%d\n", get_rand(1, 9));
+   }
+*/
    // Criando o socket
    socket_client = client_socket(PORT_CONNECT, "127.0.0.1");
 
@@ -43,9 +48,9 @@ int main(void) {
    recv_socket(socket_client, buffer_recv);
    flag = decapsulation(buffer_recv, hwspec_provisioned, NULL);
 
-   printf("%d\n", hwspec_provisioned->mips);
-
    if (flag == RESPONSE) {
+      printf("hwspec_prvisioned: %d\n", hwspec_provisioned->mips);
+
       encapsulation(buffer_send, ACK, NULL, NULL);
       send_socket(socket_client, buffer_send);
    }

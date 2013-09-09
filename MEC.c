@@ -37,11 +37,9 @@ int main(void) {
       recv_socket(socket_client, buffer_recv);
       if (decapsulation(buffer_recv, hwspec_client, app) == REQUEST) {
 
-         //chamar o Load Division Algorithm - ld_algorithm(hwspec_client)
+         printf("hwspec_client: %d\n", hwspec_client->mips);
          //se o retorto for null, não foi possível provisionar - send(NACK), close(socket), continue
-
          provision_alg(hwspec_client, hwspec_provisioned, app);
-         printf("%d\n", hwspec_provisioned->mips);
 
          // Criando mensagem de resposta
          encapsulation(buffer_send, RESPONSE, hwspec_provisioned, NULL);

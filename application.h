@@ -1,5 +1,5 @@
-#ifndef APPLICATION
-#define APPLICATION
+#ifndef _APPLICATION_H_
+#define _APPLICATION_H_
 
 #define DENSITY1 1
 #define DENSITY2 2

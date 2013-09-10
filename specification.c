@@ -42,6 +42,14 @@ void get_hwspec(HWSpecification *hwspec) {
    strcpy(hwspec->string, "PQRSTUVWXYZ");
 }
 
+void get_swspec(SWSpecification *swspec) {
+   swspec->type_spec = 2;
+   swspec->converter_to_num = 1;   // 1 = verdadeiro e 2 = falso
+   swspec->shift = 1;              // 1 = verdadeiro e 2 = falso
+   swspec->inverter = 1;           // 1 = verdadeiro e 2 = falso
+   swspec->converter_to_ascii = 1; // 1 = verdadeiro e 2 = falso
+}
+
 char* serialize_void(char *buffer, const void *value, int size) {
    //int size = sizeof(value);
 

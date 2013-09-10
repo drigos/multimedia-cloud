@@ -15,6 +15,7 @@ int main(void) {
    char buffer_recv[MAXDATASIZE], buffer_send[MAXDATASIZE];
    HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
+   SWSpecification *swspec_client;
    int flag;
    char app[2];
 //   int i = 0;
@@ -26,9 +27,19 @@ int main(void) {
    if (hwspec_client == NULL) exit (1);
    hwspec_provisioned = (HWSpecification *)malloc(sizeof(HWSpecification));
    if (hwspec_provisioned == NULL) exit (1);
+   swspec_client = (SWSpecification *)malloc(sizeof(SWSpecification));
+   if (swspec_client == NULL) exit (1);
 
    // Obtendo informações do hardware local
    get_hwspec(hwspec_client);
+   get_swspec(swspec_client);
+
+   printf("%d - %d - %d - %d - %d\n", 
+   swspec_client->type_spec,
+   swspec_client->converter_to_num,
+   swspec_client->shift,
+   swspec_client->inverter,
+   swspec_client->converter_to_ascii);
 
    //fazer escolha aleatória da aplicação
 /*

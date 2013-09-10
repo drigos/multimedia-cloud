@@ -10,6 +10,14 @@ typedef struct hw_specification {
    char string[100];
 } HWSpecification;
 
+typedef struct sw_specification {
+   int type_spec;
+   short int converter_to_num;
+   short int shift;
+   short int inverter;
+   short int converter_to_ascii;
+} SWSpecification;
+
 /*
 typedef struct specification {
    int type;   // indica quais campos estão contidos na struct e deve ser o primeiro elemento
@@ -21,6 +29,11 @@ typedef struct specification {
 // Recebe como parâmetro um ponteiro HWSpecification
 // Rertorno void
 void get_hwspec(HWSpecification *hwspec);
+
+// Preenche uma struct SWSpecification com informações do dispositivo
+// Recebe como parâmetro um ponteiro HWSpecification
+// Rertorno void
+void get_swspec(SWSpecification *swspec);
 
 // Serializa tipo primitivo genérico para o buffer
 // Recebe como parâmetro

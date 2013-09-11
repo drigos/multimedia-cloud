@@ -287,3 +287,12 @@ void deserialize_hwspec(char *buffer, HWSpecification *hwspec) {
    //buffer = deserialize_string(buffer, hwspec->string);
    buffer[0] = '\0';
 }
+
+void deserialize_swspec(char *buffer, SWSpecification *swspec) {
+   buffer = deserialize_void(buffer, &swspec->type_spec, sizeof(swspec->type_spec));
+   buffer = deserialize_void(buffer, &swspec->converter_to_num, sizeof(swspec->converter_to_num));
+   buffer = deserialize_void(buffer, &swspec->shift, sizeof(swspec->shift));
+   buffer = deserialize_void(buffer, &swspec->inverter, sizeof(swspec->inverter));
+   buffer = deserialize_void(buffer, &swspec->converter_to_ascii, sizeof(swspec->converter_to_ascii));
+   buffer[0] = '\0';
+}

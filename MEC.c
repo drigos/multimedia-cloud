@@ -17,6 +17,7 @@ int main(void) {
    short int id_app;
    HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
+   SWSpecification *swspec_client;
    char string_spec[100], option[100];
 
    int i = 0; // Teste
@@ -25,6 +26,8 @@ int main(void) {
    if (hwspec_client == NULL) exit (1);
    hwspec_provisioned = (HWSpecification *)malloc(sizeof(HWSpecification));
    if (hwspec_provisioned == NULL) exit (1);
+   swspec_client = (SWSpecification *)malloc(sizeof(SWSpecification));
+   if (swspec_client == NULL) exit (1);
 
    // Criando o socket
    socket_server = server_socket(PORT_LISTEN, BACKLOG);
@@ -41,7 +44,7 @@ int main(void) {
       if (buffer_recv[0] == REQUEST) {
 
          request_remove(buffer_recv, &id_app, string_spec, option);
-         //deserialize_swspec(string_spec, swspec_client);
+         deserialize_swspec(string_spec, swspec_client);
          //provision_alg(swspec_client, swspec_provisioned, option);
          //serialize_swspec(string_spec, swspec_provisioned);
          //response_create();

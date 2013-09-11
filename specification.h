@@ -86,4 +86,11 @@ char* deserialize_void(char *buffer, void *value, int size);
 // Retorno void
 void deserialize_hwspec(char *buffer, HWSpecification *hwspec);
 
+// Deserializa um struct SWSpecification
+// Recebe como parâmetro
+//    o ponteiro da struct alocada para ser preenchida
+//    o endereço onde está armazenada a informação
+// Retorno void
+void deserialize_swspec(char *buffer, SWSpecification *swspec);
+
 #endif

@@ -16,6 +16,8 @@ int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option)
 
 int request_remove(char *buffer, short int *id_app, char *spec, char *option);
 
+int response_remove(char *buffer, char *spec);
+
 int decapsulation(char *buffer, HWSpecification *hwspec, char *option);
 
 #endif

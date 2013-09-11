@@ -16,7 +16,7 @@ int main(void) {
    HWSpecification *hwspec_client;      // armazena hardware do cliente
    HWSpecification *hwspec_provisioned; // armazena hardware provisionado
    SWSpecification *swspec_client;      // armazena software do cliente
-   //SWSpecification *swspec_provisioned; // armazena software provisionado
+   SWSpecification *swspec_provisioned; // armazena software provisionado
    char string_spec[100];               // serialização das estruturas de especificação
    //int flag;
 //   int i = 0;
@@ -28,8 +28,8 @@ int main(void) {
    if (hwspec_provisioned == NULL) exit (1);
    swspec_client = (SWSpecification *)malloc(sizeof(SWSpecification));
    if (swspec_client == NULL) exit (1);
-   //swspec_provisioned = (SWSpecification *)malloc(sizeof(SWSpecification));
-   //if (swspec_provisioned == NULL) exit (1);
+   swspec_provisioned = (SWSpecification *)malloc(sizeof(SWSpecification));
+   if (swspec_provisioned == NULL) exit (1);
 
    // Obtendo informações do dispositivo local
    get_hwspec(hwspec_client);
@@ -49,12 +49,27 @@ int main(void) {
 
    // Aguardando reposta
    recv_socket(socket_client, buffer_recv);
+   // Verificando se é a resposta
+   if (buffer_recv[0] == RESPONSE) {
 
-   //if (flag == RESPONSE) {
-   //if (buffer_recv[0] == RESPONSE)
+      // Abrindo a mensagem
+      response_remove(buffer_recv, string_spec);
+      deserialize_swspec(string_spec, swspec_provisioned);
+
+      puts("");
+      puts("Capacidades Provisionadas");
+      puts("-------------------------");
+      printf("Tipo de estrutura: %d\n", swspec_client->type_spec);
+      puts("Capacidades:");
+      printf("   %d : converter_to_num\n"  , swspec_provisioned->converter_to_num % 2);
+      printf("   %d : shift\n"             , swspec_provisioned->shift % 2);
+      printf("   %d : inverter\n"          , swspec_provisioned->inverter % 2);
+      printf("   %d : converter_to_ascii\n", swspec_provisioned->converter_to_ascii % 2);
+      puts("");
+
       encapsulation(buffer_send, ACK, NULL, NULL);
       send_socket(socket_client, buffer_send);
-   //}
+   }
    //else if (flag == NACK) { tratamento especial } (socket deve ser fechado)
 
    // Fim do Three-Way
@@ -76,7 +91,7 @@ int main(void) {
    free(hwspec_client);
    free(hwspec_provisioned);
    free(swspec_client);
-   //free(swspec_provisioned);
+   free(swspec_provisioned);
 
    return 0;
 }

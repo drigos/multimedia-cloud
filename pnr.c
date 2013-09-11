@@ -42,7 +42,7 @@ int response_create(char *buffer, uint8_t type_msg, char *spec) {
    buffer[8] = '\0';
 
    strcat(buffer, spec);
-   strcat(buffer, "\r\n");
+   strcat(buffer, "\r\n\r\n");
 
    return 0;   
 }
@@ -99,6 +99,19 @@ int request_remove(char *buffer, short int *id_app, char *spec, char *option) {
    pch = strstr(buffer, "\r\n");
    *pch = '\0';
    strcpy(option, buffer);
+
+   return 0;
+}
+
+int response_remove(char *buffer, char *spec) {
+	char *pch;
+
+   if (buffer[0] != RESPONSE) return -1;
+
+   buffer += 8;
+   pch = strstr(buffer, "\r\n");
+   *pch = '\0';
+   strcpy(spec, buffer);
 
    return 0;
 }

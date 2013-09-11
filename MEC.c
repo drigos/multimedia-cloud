@@ -54,22 +54,21 @@ int main(void) {
          request_remove(buffer_recv, &id_app, string_spec, option);
          deserialize_swspec(string_spec, swspec_client);
 
-         puts("");
-         puts("Capacidades Provisionadas");
-         puts("-------------------------");
-         print_swspec(swspec_client);
-         puts("");
-
          //pode ser criado grupo de threads para realizar os provisionamentos
          // Executa algoritmo de provisionamento
          // e verifica indisponibilidade de provisionamento
          if (provision_swspec(swspec_client, swspec_provisioned, option) < 0) {
-            //nack_create();
-            //send_socket(socket_client, buffer_send);
-            puts("Estrutura não suportada");
+            nack_create(buffer_send, SPECIFICATION_NOT_SUPPORTED);
+            send_socket(socket_client, buffer_send);
             close(socket_client);
             continue;
          }
+
+         puts("");
+         puts("Capacidades do Cliente");
+         puts("----------------------");
+         print_swspec(swspec_client);
+         puts("");
 
          // Criando mensagem de resposta
          serialize_swspec(string_spec, swspec_provisioned);
@@ -97,6 +96,8 @@ int main(void) {
    close(socket_server);
    free(hwspec_client);
    free(hwspec_provisioned);
+   free(swspec_client);
+   free(swspec_provisioned);
 
    return 0;
 }

@@ -61,6 +61,21 @@ int ack_create(char *buffer, uint8_t type_msg) {
    return 0;
 }
 
+int nack_create(char *buffer, uint8_t error) {
+
+   buffer[0] = NACK;
+   buffer[1] = '\r';
+   buffer[2] = '\n';
+   buffer[3] = error;
+   buffer[4] = '\r';
+   buffer[5] = '\n';
+   buffer[6] = '\r';
+   buffer[7] = '\n';
+   buffer[8] = '\0';
+
+   return 0;
+}
+
 int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option) {
    char string_hwspec[100];  // Adaptar o tamanho
 
@@ -128,6 +143,13 @@ int response_remove(char *buffer, char *spec) {
    strcpy(spec, buffer);
 
    return 0;
+}
+
+int nack_remove(char *buffer) {
+   
+   if (buffer[0] != NACK) return -1;
+
+   return buffer[3];
 }
 
 int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {

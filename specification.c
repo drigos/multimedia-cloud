@@ -53,13 +53,17 @@ void get_swspec(SWSpecification *swspec) {
    swspec->converter_to_ascii = true;  // 1 = verdadeiro e 2 = falso
 }
 
-void print_swspec(SWSpecification *swspec) {
-      printf("Tipo de estrutura: %d\n", swspec->type_spec);
-      puts("Capacidades:");
-      printf("   %d : converter_to_num\n"  , swspec->converter_to_num % 2);
-      printf("   %d : shift\n"             , swspec->shift % 2);
-      printf("   %d : inverter\n"          , swspec->inverter % 2);
-      printf("   %d : converter_to_ascii\n", swspec->converter_to_ascii % 2);
+int print_swspec(SWSpecification *swspec) {
+   if (swspec->type_spec != 2) return -1;
+
+   printf("Tipo de estrutura: %d\n", swspec->type_spec);
+   puts("Capacidades:");
+   printf("   %d : converter_to_num\n"  , swspec->converter_to_num % 2);
+   printf("   %d : shift\n"             , swspec->shift % 2);
+   printf("   %d : inverter\n"          , swspec->inverter % 2);
+   printf("   %d : converter_to_ascii\n", swspec->converter_to_ascii % 2);
+
+   return 0;
 }
 
 char* serialize_void(char *buffer, const void *value, int size) {

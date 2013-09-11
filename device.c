@@ -18,6 +18,7 @@ int main(void) {
    SWSpecification *swspec_client;      // armazena software do cliente
    SWSpecification *swspec_provisioned; // armazena software provisionado
    char string_spec[100];               // serialização das estruturas de especificação
+   int error;
    //int flag;
 //   int i = 0;
 
@@ -65,22 +66,12 @@ int main(void) {
       ack_create(buffer_send, ACK);
       send_socket(socket_client, buffer_send);
    }
-   //else if (flag == NACK) { tratamento especial } (socket deve ser fechado)
-
-   // Fim do Three-Way
-
-/*
-   printf("Digite o texto para ser convertido: ");
-   scanf("%s", &text_lower);
-
-   while (text_lower[i] != '\0') {
-      text_upper[i] = to_upper_case(text_lower[i]);
-
-      i++;
+   else if (buffer_recv[0] == NACK) {
+      error = nack_remove(buffer_recv);
+      printf("Recebido NACK, erro: %d\n", error);
    }
 
-   puts(text_upper);
-*/
+   // Fim do Three-Way
 
    close(socket_client);
    free(hwspec_client);

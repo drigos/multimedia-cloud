@@ -3,11 +3,9 @@
 #include <string.h>
 #include <inttypes.h>
 
-int request_create(char *buffer, uint8_t type_msg, short int id_app, char *spec, char *option) {
+void request_create(char *buffer, short int id_app, char *spec, char *option) {
 
-   if (type_msg != REQUEST) return -1;
-
-   buffer[0] = type_msg;
+   buffer[0] = REQUEST;
    buffer[1] = '\r';
    buffer[2] = '\n';
    buffer[3] = 255;
@@ -23,15 +21,11 @@ int request_create(char *buffer, uint8_t type_msg, short int id_app, char *spec,
    strcat(buffer, "\r\n");
    strcat(buffer, option);
    strcat(buffer, "\r\n\r\n");
-
-   return 0;   
 }
 
-int response_create(char *buffer, uint8_t type_msg, char *spec) {
+void response_create(char *buffer, char *spec) {
 
-   if (type_msg != RESPONSE) return -1;
-
-   buffer[0] = type_msg;
+   buffer[0] = RESPONSE;
    buffer[1] = '\r';
    buffer[2] = '\n';
    buffer[3] = 255;
@@ -43,25 +37,19 @@ int response_create(char *buffer, uint8_t type_msg, char *spec) {
 
    strcat(buffer, spec);
    strcat(buffer, "\r\n\r\n");
-
-   return 0;   
 }
 
-int ack_create(char *buffer, uint8_t type_msg) {
+void ack_create(char *buffer) {
 
-   if (type_msg != ACK) return -1;
-
-   buffer[0] = type_msg;
+   buffer[0] = ACK;
    buffer[1] = '\r';
    buffer[2] = '\n';
    buffer[3] = '\r';
    buffer[4] = '\n';
    buffer[5] = '\0';
-
-   return 0;
 }
 
-int nack_create(char *buffer, uint8_t error) {
+void nack_create(char *buffer, uint8_t error) {
 
    buffer[0] = NACK;
    buffer[1] = '\r';
@@ -72,10 +60,8 @@ int nack_create(char *buffer, uint8_t error) {
    buffer[6] = '\r';
    buffer[7] = '\n';
    buffer[8] = '\0';
-
-   return 0;
 }
-
+/*
 int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option) {
    char string_hwspec[100];  // Adaptar o tamanho
 
@@ -109,7 +95,7 @@ int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option)
 
    return 0;
 }
-
+*/
 int request_remove(char *buffer, short int *id_app, char *spec, char *option) {
 	char *pch;
 
@@ -151,7 +137,7 @@ int nack_remove(char *buffer) {
 
    return buffer[3];
 }
-
+/*
 int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
 	char *pch;
 	int flag;
@@ -194,4 +180,4 @@ int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
 	
 	return flag;
 }
-
+*/

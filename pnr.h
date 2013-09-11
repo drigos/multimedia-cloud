@@ -3,6 +3,7 @@
 
 #include "specification.h"
 
+// Tipos de mensagem
 #define REQUEST 1
 #define RESPONSE 2
 #define ACK 3
@@ -13,15 +14,15 @@
 // MEC não tem recursos suficientes para fornecer
 #define INSUFFICIENT_RESOURCE 2
 
-int request_create(char *buffer, uint8_t type_msg, short int id_app, char *spec, char *option);
+void request_create(char *buffer, short int id_app, char *spec, char *option);
 
-int response_create(char *buffer, uint8_t type_msg, char *spec);
+void response_create(char *buffer, char *spec);
 
-int ack_create(char *buffer, uint8_t type_msg);
+void ack_create(char *buffer);
 
-int nack_create(char *buffer, uint8_t error);
+void nack_create(char *buffer, uint8_t error);
 
-int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option);
+//int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option);
 
 int request_remove(char *buffer, short int *id_app, char *spec, char *option);
 
@@ -31,6 +32,6 @@ int response_remove(char *buffer, char *spec);
 
 int nack_remove(char *buffer);
 
-int decapsulation(char *buffer, HWSpecification *hwspec, char *option);
+//int decapsulation(char *buffer, HWSpecification *hwspec, char *option);
 
 #endif

@@ -43,7 +43,7 @@ int main(void) {
 
    // Criando mensagem a ser enviada
    serialize_swspec(string_spec, swspec_client);
-   request_create(buffer_send, REQUEST, 4369, string_spec, "login");
+   request_create(buffer_send, 4369, string_spec, "login");
 
    // Enviando mensagem
    send_socket(socket_client, buffer_send);
@@ -63,7 +63,7 @@ int main(void) {
       print_swspec(swspec_provisioned);
       puts("");
 
-      ack_create(buffer_send, ACK);
+      ack_create(buffer_send);
       send_socket(socket_client, buffer_send);
    }
    else if (buffer_recv[0] == NACK) {

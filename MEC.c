@@ -72,7 +72,7 @@ int main(void) {
 
          // Criando mensagem de resposta
          serialize_swspec(string_spec, swspec_provisioned);
-         response_create(buffer_send, RESPONSE, string_spec);
+         response_create(buffer_send, string_spec);
 
          // Enviando mensagem
          send_socket(socket_client, buffer_send);

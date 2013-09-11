@@ -18,6 +18,7 @@ int main(void) {
    HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
    SWSpecification *swspec_client;
+   SWSpecification *swspec_provisioned;
    char string_spec[100], option[100];
 
    int i = 0; // Teste
@@ -28,6 +29,8 @@ int main(void) {
    if (hwspec_provisioned == NULL) exit (1);
    swspec_client = (SWSpecification *)malloc(sizeof(SWSpecification));
    if (swspec_client == NULL) exit (1);
+   swspec_provisioned = (SWSpecification *)malloc(sizeof(SWSpecification));
+   if (swspec_provisioned == NULL) exit (1);
 
    // Criando o socket
    socket_server = server_socket(PORT_LISTEN, BACKLOG);
@@ -45,17 +48,24 @@ int main(void) {
 
          request_remove(buffer_recv, &id_app, string_spec, option);
          deserialize_swspec(string_spec, swspec_client);
-         //provision_alg(swspec_client, swspec_provisioned, option);
-         //serialize_swspec(string_spec, swspec_provisioned);
+
+
+         if (provision_swspec(swspec_client, swspec_provisioned, option) < 0) {
+            //nack_create();
+            //send_socket(socket_client, buffer_send);
+            puts("Estrutura não suportada");
+            close(socket_client);
+            continue;
+         }
+         serialize_swspec(string_spec, swspec_provisioned);
          //response_create();
 
-         //se o retorto for null, não foi possível provisionar - send(NACK), close(socket), continue
-         //provision_alg(hwspec_client, hwspec_provisioned, app);
+         //provision_hwspec(hwspec_client, hwspec_provisioned, app);
 
          // Criando mensagem de resposta
          //encapsulation(buffer_send, RESPONSE, NULL, NULL);
          //send_socket(socket_client, buffer_send);
-         send_socket(socket_client, option);
+         send_socket(socket_client, string_spec);
 
          //dispara prefetch
 

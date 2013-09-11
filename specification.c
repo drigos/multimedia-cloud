@@ -2,6 +2,8 @@
 #include <inttypes.h>
 #include <string.h>
 
+#include "toolbox.h"
+
 void get_hwspec(HWSpecification *hwspec) {
    // hwspec->mips = 858993459; //Cenario 1
    // hwspec->mips = 51450129; //Cenario 2
@@ -44,10 +46,10 @@ void get_hwspec(HWSpecification *hwspec) {
 
 void get_swspec(SWSpecification *swspec) {
    swspec->type_spec = 2;
-   swspec->converter_to_num = 1;   // 1 = verdadeiro e 2 = falso
-   swspec->shift = 1;              // 1 = verdadeiro e 2 = falso
-   swspec->inverter = 1;           // 1 = verdadeiro e 2 = falso
-   swspec->converter_to_ascii = 1; // 1 = verdadeiro e 2 = falso
+   swspec->converter_to_num = false;   // 1 = verdadeiro e 2 = falso
+   swspec->shift = false;              // 1 = verdadeiro e 2 = falso
+   swspec->inverter = false;           // 1 = verdadeiro e 2 = falso
+   swspec->converter_to_ascii = true; // 1 = verdadeiro e 2 = falso
 }
 
 char* serialize_void(char *buffer, const void *value, int size) {

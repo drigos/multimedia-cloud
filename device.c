@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "socket.h"
-#include "toolbox.h"
 #include "application.h"
 #include "specification.h"
 #include "pnr.h"
@@ -16,13 +15,13 @@ int main(void) {
    HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
    SWSpecification *swspec_client;
-   int flag;
+   //int flag;
    char string_spec[100];
-   char app[2];
+   //char app[2];
 //   int i = 0;
 
-   app[0] = DENSITY1;
-   app[1] = '\0';
+   //app[0] = DENSITY1;
+   //app[1] = '\0';
 
    hwspec_client = (HWSpecification *)malloc(sizeof(HWSpecification));
    if (hwspec_client == NULL) exit (1);
@@ -50,10 +49,10 @@ int main(void) {
 
    // Aguardando reposta
    recv_socket(socket_client, buffer_recv);
-   puts(buffer_recv);
    //flag = decapsulation(buffer_recv, hwspec_provisioned, NULL);
 
    //if (flag == RESPONSE) {
+   //if (buffer_recv[0] == RESPONSE)
       encapsulation(buffer_send, ACK, NULL, NULL);
       send_socket(socket_client, buffer_send);
    //}

@@ -33,9 +33,14 @@ typedef struct specification {
 void get_hwspec(HWSpecification *hwspec);
 
 // Preenche uma struct SWSpecification com informações do dispositivo
-// Recebe como parâmetro um ponteiro HWSpecification
+// Recebe como parâmetro um ponteiro SWSpecification
 // Rertorno void
 void get_swspec(SWSpecification *swspec);
+
+// Imprime a estrutura SWSpecification
+// Recebe como parâmetro um ponteiro SWSpecification
+// Rertorno void
+void print_swspec(SWSpecification *swspec);
 
 // Serializa tipo primitivo genérico para o buffer
 // Recebe como parâmetro

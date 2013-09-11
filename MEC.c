@@ -54,6 +54,12 @@ int main(void) {
          request_remove(buffer_recv, &id_app, string_spec, option);
          deserialize_swspec(string_spec, swspec_client);
 
+         puts("");
+         puts("Capacidades Provisionadas");
+         puts("-------------------------");
+         print_swspec(swspec_client);
+         puts("");
+
          //pode ser criado grupo de threads para realizar os provisionamentos
          // Executa algoritmo de provisionamento
          // e verifica indisponibilidade de provisionamento

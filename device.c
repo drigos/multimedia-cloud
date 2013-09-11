@@ -59,12 +59,7 @@ int main(void) {
       puts("");
       puts("Capacidades Provisionadas");
       puts("-------------------------");
-      printf("Tipo de estrutura: %d\n", swspec_client->type_spec);
-      puts("Capacidades:");
-      printf("   %d : converter_to_num\n"  , swspec_provisioned->converter_to_num % 2);
-      printf("   %d : shift\n"             , swspec_provisioned->shift % 2);
-      printf("   %d : inverter\n"          , swspec_provisioned->inverter % 2);
-      printf("   %d : converter_to_ascii\n", swspec_provisioned->converter_to_ascii % 2);
+      print_swspec(swspec_provisioned);
       puts("");
 
       ack_create(buffer_send, ACK);

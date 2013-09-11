@@ -17,6 +17,7 @@ int main(void) {
    HWSpecification *hwspec_provisioned;
    SWSpecification *swspec_client;
    int flag;
+   char string_spec[100];
    char app[2];
 //   int i = 0;
 
@@ -34,12 +35,17 @@ int main(void) {
    get_hwspec(hwspec_client);
    get_swspec(swspec_client);
 
-   //fazer escolha aleatória da aplicação
-/*
-   for (i = 0 ; i < 10 ; i++ ) {
-      printf("%d\n", get_rand(1, 9));
-   }
-*/
+   serialize_swspec(string_spec, swspec_client);
+//   for (i = 0 ; i < 6 ; i++ ) {
+//      printf("%d ", string_spec[i]);
+//   }
+//   puts("");
+   request_create(buffer_send, REQUEST, 4369, string_spec, "login");
+//   for (i = 0 ; i < 27 ; i++ ) {
+//      printf("%d ", buffer_send[i]);
+//   }
+//   puts("");
+
    // Criando o socket
    socket_client = client_socket(PORT_CONNECT, "127.0.0.1");
 

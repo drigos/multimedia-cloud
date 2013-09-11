@@ -1,6 +1,31 @@
 #include "pnr.h"
 #include "specification.h"
 #include <string.h>
+#include <inttypes.h>
+
+int request_create(char *buffer, uint8_t type_msg, short int id_app, char *spec, char *option) {
+
+   if (type_msg != REQUEST) return -1;
+
+   buffer[0] = type_msg;
+   buffer[1] = '\r';
+   buffer[2] = '\n';
+   buffer[3] = 255;
+   buffer[4] = '\r';
+   buffer[5] = '\n';
+   buffer[6] = id_app >> 8;
+   buffer[7] = id_app;
+   buffer[8] = '\r';
+   buffer[9] = '\n';
+   buffer[10] = '\0';
+
+   strcat(buffer, spec);
+   strcat(buffer, "\r\n");
+   strcat(buffer, option);
+   strcat(buffer, "\r\n\r\n");
+
+   return 0;   
+}
 
 int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option) {
    char string_hwspec[100];  // Adaptar o tamanho

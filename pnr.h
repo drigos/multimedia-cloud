@@ -8,6 +8,8 @@
 #define ACK 3
 #define NACK 4
 
+int request_create(char *buffer, uint8_t type_msg, short int id_app, char *spec, char *option);
+
 int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option);
 
 int decapsulation(char *buffer, HWSpecification *hwspec, char *option);

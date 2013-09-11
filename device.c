@@ -35,36 +35,28 @@ int main(void) {
    get_hwspec(hwspec_client);
    get_swspec(swspec_client);
 
-   serialize_swspec(string_spec, swspec_client);
-//   for (i = 0 ; i < 6 ; i++ ) {
-//      printf("%d ", string_spec[i]);
-//   }
-//   puts("");
-   request_create(buffer_send, REQUEST, 4369, string_spec, "login");
-//   for (i = 0 ; i < 27 ; i++ ) {
-//      printf("%d ", buffer_send[i]);
-//   }
-//   puts("");
-
    // Criando o socket
    socket_client = client_socket(PORT_CONNECT, "127.0.0.1");
 
    // Início do Three-Way
 
    // Criando mensagem a ser enviada
-   encapsulation(buffer_send, REQUEST, hwspec_client, app);
+   serialize_swspec(string_spec, swspec_client);
+   request_create(buffer_send, REQUEST, 4369, string_spec, "login");
+
+   // Criando mensagem a ser enviada
+   //encapsulation(buffer_send, REQUEST, hwspec_client, app);
    send_socket(socket_client, buffer_send);
 
    // Aguardando reposta
    recv_socket(socket_client, buffer_recv);
-   flag = decapsulation(buffer_recv, hwspec_provisioned, NULL);
+   puts(buffer_recv);
+   //flag = decapsulation(buffer_recv, hwspec_provisioned, NULL);
 
-   if (flag == RESPONSE) {
-      printf("hwspec_prvisioned: %d\n", hwspec_provisioned->mips);
-
+   //if (flag == RESPONSE) {
       encapsulation(buffer_send, ACK, NULL, NULL);
       send_socket(socket_client, buffer_send);
-   }
+   //}
    //else if (flag == NACK) { tratamento especial } (socket deve ser fechado)
 
    // Fim do Three-Way

@@ -12,10 +12,12 @@
 
 int main(void) {
    int socket_server, socket_client;
-   char buffer_recv[MAXDATASIZE], buffer_send[MAXDATASIZE];
-   char app[50];
+   char buffer_recv[MAXDATASIZE]/*, buffer_send[MAXDATASIZE]*/;
+   //char app[50];
+   short int id_app;
    HWSpecification *hwspec_client;
    HWSpecification *hwspec_provisioned;
+   char string_spec[100], option[100];
 
    int i = 0; // Teste
 
@@ -36,20 +38,27 @@ int main(void) {
 
       // Início do Three-Way
       recv_socket(socket_client, buffer_recv);
-      if (decapsulation(buffer_recv, hwspec_client, app) == REQUEST) {
+      if (buffer_recv[0] == REQUEST) {
 
-         printf("hwspec_client: %d\n", hwspec_client->mips);
+         request_remove(buffer_recv, &id_app, string_spec, option);
+         //deserialize_swspec(string_spec, swspec_client);
+         //provision_alg(swspec_client, swspec_provisioned, option);
+         //serialize_swspec(string_spec, swspec_provisioned);
+         //response_create();
+
          //se o retorto for null, não foi possível provisionar - send(NACK), close(socket), continue
-         provision_alg(hwspec_client, hwspec_provisioned, app);
+         //provision_alg(hwspec_client, hwspec_provisioned, app);
 
          // Criando mensagem de resposta
-         encapsulation(buffer_send, RESPONSE, hwspec_provisioned, NULL);
-         send_socket(socket_client, buffer_send);
+         //encapsulation(buffer_send, RESPONSE, NULL, NULL);
+         //send_socket(socket_client, buffer_send);
+         send_socket(socket_client, option);
 
          //dispara prefetch
 
          // Aguardando ack
          recv_socket(socket_client, buffer_recv);
+         puts(buffer_recv);
          
       // Fim do Three-Way
 

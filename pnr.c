@@ -61,6 +61,28 @@ int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option)
    return 0;
 }
 
+int request_remove(char *buffer, short int *id_app, char *spec, char *option) {
+	char *pch;
+
+   if (buffer[0] != REQUEST) return -1;
+
+   *id_app = buffer[6];
+   *id_app <<= 8;
+   *id_app += buffer[7];
+
+   buffer += 10;
+   pch = strstr(buffer, "\r\n");
+   *pch = '\0';
+   strcpy(spec, buffer);
+
+   buffer = pch + 2;
+   pch = strstr(buffer, "\r\n");
+   *pch = '\0';
+   strcpy(option, buffer);
+
+   return 0;
+}
+
 int decapsulation(char *buffer, HWSpecification *hwspec, char *option) {
 	char *pch;
 	int flag;

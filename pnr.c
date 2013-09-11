@@ -47,6 +47,20 @@ int response_create(char *buffer, uint8_t type_msg, char *spec) {
    return 0;   
 }
 
+int ack_create(char *buffer, uint8_t type_msg) {
+
+   if (type_msg != ACK) return -1;
+
+   buffer[0] = type_msg;
+   buffer[1] = '\r';
+   buffer[2] = '\n';
+   buffer[3] = '\r';
+   buffer[4] = '\n';
+   buffer[5] = '\0';
+
+   return 0;
+}
+
 int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option) {
    char string_hwspec[100];  // Adaptar o tamanho
 

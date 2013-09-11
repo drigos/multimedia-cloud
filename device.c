@@ -67,7 +67,7 @@ int main(void) {
       printf("   %d : converter_to_ascii\n", swspec_provisioned->converter_to_ascii % 2);
       puts("");
 
-      encapsulation(buffer_send, ACK, NULL, NULL);
+      ack_create(buffer_send, ACK);
       send_socket(socket_client, buffer_send);
    }
    //else if (flag == NACK) { tratamento especial } (socket deve ser fechado)

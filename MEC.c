@@ -54,6 +54,7 @@ int main(void) {
          request_remove(buffer_recv, &id_app, string_spec, option);
          deserialize_swspec(string_spec, swspec_client);
 
+         //pode ser criado grupo de threads para realizar os provisionamentos
          // Executa algoritmo de provisionamento
          // e verifica indisponibilidade de provisionamento
          if (provision_swspec(swspec_client, swspec_provisioned, option) < 0) {
@@ -75,12 +76,13 @@ int main(void) {
 
          // Aguardando recomhecimento
          recv_socket(socket_client, buffer_recv);
-         puts(buffer_recv);
-         
+
       // Fim do Three-Way
 
-         //se for recebido o ACK, preenche Tabela de Controle
-         //envia aplicação - cria aqui as threads
+         if (buffer_recv[0] == ACK) {
+            //se for recebido o ACK, preenche Tabela de Controle
+            //envia aplicação - cria aqui as threads
+         }
       }
 
       close(socket_client);

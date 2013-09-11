@@ -27,6 +27,26 @@ int request_create(char *buffer, uint8_t type_msg, short int id_app, char *spec,
    return 0;   
 }
 
+int response_create(char *buffer, uint8_t type_msg, char *spec) {
+
+   if (type_msg != RESPONSE) return -1;
+
+   buffer[0] = type_msg;
+   buffer[1] = '\r';
+   buffer[2] = '\n';
+   buffer[3] = 255;
+   buffer[4] = 255;
+   buffer[5] = 255;
+   buffer[6] = '\r';
+   buffer[7] = '\n';
+   buffer[8] = '\0';
+
+   strcat(buffer, spec);
+   strcat(buffer, "\r\n");
+
+   return 0;   
+}
+
 int encapsulation(char *buffer, int flag, HWSpecification *hwspec, char *option) {
    char string_hwspec[100];  // Adaptar o tamanho
 

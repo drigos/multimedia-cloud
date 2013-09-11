@@ -11,18 +11,20 @@
 #define BACKLOG 50
 
 int main(void) {
-   int socket_server, socket_client;
-   char buffer_recv[MAXDATASIZE]/*, buffer_send[MAXDATASIZE]*/;
-   //char app[50];
-   short int id_app;
-   HWSpecification *hwspec_client;
-   HWSpecification *hwspec_provisioned;
-   SWSpecification *swspec_client;
-   SWSpecification *swspec_provisioned;
-   char string_spec[100], option[100];
+   int socket_server, socket_client;    // descritores de sockets
+   char buffer_recv[MAXDATASIZE];       // string recebida
+   char buffer_send[MAXDATASIZE];       // string que será enviada
+   short int id_app;                    // id da aplicação do cliente
+   HWSpecification *hwspec_client;      // armazena hardware do cliente
+   HWSpecification *hwspec_provisioned; // armazena hardware provisionado
+   SWSpecification *swspec_client;      // armazena software do cliente
+   SWSpecification *swspec_provisioned; // armazena software provisionado
+   char string_spec[100];               // serialização das estruturas de especificação
+   char option[100];                    // opções recebidas da aplicação cliente
 
    int i = 0; // Teste
 
+   // Alocando memória para as estruturas de especificação
    hwspec_client = (HWSpecification *)malloc(sizeof(HWSpecification));
    if (hwspec_client == NULL) exit (1);
    hwspec_provisioned = (HWSpecification *)malloc(sizeof(HWSpecification));
@@ -35,7 +37,6 @@ int main(void) {
    // Criando o socket
    socket_server = server_socket(PORT_LISTEN, BACKLOG);
 
-   i = 0; // Teste
    for (;;) {
       printf("%d -------------------\n", i++); // Teste
 
@@ -43,13 +44,18 @@ int main(void) {
       socket_client = accept_socket(socket_server);
 
       // Início do Three-Way
+
+      // Aguardando requisição
       recv_socket(socket_client, buffer_recv);
+      // Verificando se é uma requisição
       if (buffer_recv[0] == REQUEST) {
 
+         // Abrindo a mensagem
          request_remove(buffer_recv, &id_app, string_spec, option);
          deserialize_swspec(string_spec, swspec_client);
 
-
+         // Executa algoritmo de provisionamento
+         // e verifica indisponibilidade de provisionamento
          if (provision_swspec(swspec_client, swspec_provisioned, option) < 0) {
             //nack_create();
             //send_socket(socket_client, buffer_send);
@@ -57,19 +63,17 @@ int main(void) {
             close(socket_client);
             continue;
          }
-         serialize_swspec(string_spec, swspec_provisioned);
-         //response_create();
-
-         //provision_hwspec(hwspec_client, hwspec_provisioned, app);
 
          // Criando mensagem de resposta
-         //encapsulation(buffer_send, RESPONSE, NULL, NULL);
-         //send_socket(socket_client, buffer_send);
-         send_socket(socket_client, string_spec);
+         serialize_swspec(string_spec, swspec_provisioned);
+         response_create(buffer_send, RESPONSE, string_spec);
+
+         // Enviando mensagem
+         send_socket(socket_client, buffer_send);
 
          //dispara prefetch
 
-         // Aguardando ack
+         // Aguardando recomhecimento
          recv_socket(socket_client, buffer_recv);
          puts(buffer_recv);
          

@@ -1,6 +1,8 @@
 #ifndef _SPECIFICATION_H_
 #define _SPECIFICATION_H_
 
+#include <inttypes.h>
+
 typedef struct hw_specification {
    unsigned int mips;
    long int lint;
@@ -11,11 +13,11 @@ typedef struct hw_specification {
 } HWSpecification;
 
 typedef struct sw_specification {
-   int type_spec;
-   short int converter_to_num;
-   short int shift;
-   short int inverter;
-   short int converter_to_ascii;
+   uint8_t type_spec;
+   uint8_t converter_to_num;
+   uint8_t shift;
+   uint8_t inverter;
+   uint8_t converter_to_ascii;
 } SWSpecification;
 
 /*
@@ -43,7 +45,7 @@ void get_swspec(SWSpecification *swspec);
 // Retorna o próximo endereço disponível do buffer
 char* serialize_void(char *buffer, const void *value, int size);
 
-//char* serialize_string(char *buffer, void *array, int size_type);
+//char* serialize_array(char *buffer, void *array, int size_type);
 
 // Serializa uma string para o buffer
 // Chama serialize_void() para cada caracter da string
@@ -60,6 +62,13 @@ char* serialize_string(char *buffer, char *string);
 // Retorna o próximo endereço disponível do buffer
 char* serialize_hwspec(char *buffer, HWSpecification *hwspec);
 
+// Serializa um struct SWSpecification
+// Recebe como parâmetro
+//    o ponteiro da struct
+//    o ponteiro do buffer
+// Retorna o próximo endereço disponível do buffer
+char* serialize_swspec(char *buffer, SWSpecification *swspec);
+
 // Deserializa informação do buffer para um tipo primitivo genérico
 // Recebe como parâmetro
 //    um tipo genérico para ser preenchido (ponteiro)
@@ -67,6 +76,8 @@ char* serialize_hwspec(char *buffer, HWSpecification *hwspec);
 //    o endereço onde está armazenada a informação
 // Retorna o próximo endereço do buffer a ser verificado
 char* deserialize_void(char *buffer, void *value, int size);
+
+//char* deserialize_string(char *buffer, char *string);
 
 // Deserializa um struct HWSpecification
 // Recebe como parâmetro

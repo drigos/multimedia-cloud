@@ -34,13 +34,6 @@ int main(void) {
    get_hwspec(hwspec_client);
    get_swspec(swspec_client);
 
-   printf("%d - %d - %d - %d - %d\n", 
-   swspec_client->type_spec,
-   swspec_client->converter_to_num,
-   swspec_client->shift,
-   swspec_client->inverter,
-   swspec_client->converter_to_ascii);
-
    //fazer escolha aleatória da aplicação
 /*
    for (i = 0 ; i < 10 ; i++ ) {

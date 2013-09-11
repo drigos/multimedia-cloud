@@ -161,6 +161,17 @@ char* serialize_hwspec(char *buffer, HWSpecification *hwspec) {
    return buffer;
 }
 
+char* serialize_swspec(char *buffer, SWSpecification *swspec) {
+   buffer = serialize_void(buffer, &swspec->type_spec, sizeof(swspec->type_spec));
+   buffer = serialize_void(buffer, &swspec->converter_to_num, sizeof(swspec->converter_to_num));
+   buffer = serialize_void(buffer, &swspec->shift, sizeof(swspec->shift));
+   buffer = serialize_void(buffer, &swspec->inverter, sizeof(swspec->inverter));
+   buffer = serialize_void(buffer, &swspec->converter_to_ascii, sizeof(swspec->converter_to_ascii));
+   buffer[0] = '\0';
+
+   return buffer;
+}
+
 char* deserialize_void(char *buffer, void *value, int size) {
 
    // Move cada caracter do buffer em direção ao MSB de value

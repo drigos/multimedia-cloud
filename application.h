@@ -13,4 +13,6 @@
 
 char to_upper_case(char letter);
 
+char to_lower_case(char letter);
+
 #endif

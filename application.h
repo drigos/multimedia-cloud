@@ -1,6 +1,9 @@
 #ifndef _APPLICATION_H_
 #define _APPLICATION_H_
 
+#include <stdlib.h>
+#include <string.h>
+
 #define DENSITY1 1
 #define DENSITY2 2
 #define DENSITY3 3
@@ -14,5 +17,7 @@
 char to_upper_case(char letter);
 
 char to_lower_case(char letter);
+
+int* to_number(char *letter);
 
 #endif

@@ -15,3 +15,14 @@ char to_lower_case(char letter) {
 
    return letter;
 }
+
+int* to_number(char *letter) {
+	int i;
+	int *numbers = (int*)malloc(sizeof(int) * strlen(letter));
+
+	for(i = 0; i < strlen(letter); i++){
+		numbers[i] = (int)letter[i];
+	}
+
+	return numbers;
+}

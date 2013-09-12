@@ -49,7 +49,7 @@ void get_swspec(SWSpecification *swspec) {
    swspec->type_spec = 2;
    swspec->encrypt = false;   // 1 = verdadeiro e 2 = falso
    swspec->shift = false;              // 1 = verdadeiro e 2 = falso
-   swspec->inverter = false;           // 1 = verdadeiro e 2 = falso
+   swspec->inverter = true;           // 1 = verdadeiro e 2 = falso
    swspec->decrypt = true;  // 1 = verdadeiro e 2 = falso
 }
 

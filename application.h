@@ -20,9 +20,13 @@ char to_upper_case(char letter);
 
 char to_lower_case(char letter);
 
-char* shift_string(char *string);
+void shift_string(char *string);
 
-char* invert_string(char *string);
+void invert_string(char *string);
+
+void encrypt_caesar_cipher(char *string);
+
+void decrypt_caesar_cipher(char *string);
 
 // int* to_number(char *letter);
 

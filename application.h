@@ -18,6 +18,8 @@ char to_upper_case(char letter);
 
 char to_lower_case(char letter);
 
+char* shift(char *string);
+
 int* to_number(char *letter);
 
 char* to_char(int *numbers, int size);

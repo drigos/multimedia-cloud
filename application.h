@@ -22,8 +22,10 @@ char* shift_string(char *string);
 
 char* invert_string(char *string);
 
-int* to_number(char *letter);
+// int* to_number(char *letter);
 
-char* to_char(int *numbers, int size);
+// char* to_char(int *numbers, int size);
+
+// void char_stream(SWSpecification *swspec /*, int file*/)
 
 #endif

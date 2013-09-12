@@ -16,15 +16,26 @@ char to_lower_case(char letter) {
    return letter;
 }
 
-char* shift(char *string){
+char* shift_string(char *string) {
 	int i;
-	char *shift_string = (char*)malloc(strlen(string));
+	char *shifted_string = (char*)malloc(strlen(string));
 
 	for(i = 0; i < strlen(string); i++)
-		shift_string[i] = to_upper_case(string[i]);
+		shifted_string[i] = to_upper_case(string[i]);
 	string[strlen(string)] = '\0';
 
-	return shift_string;
+	return shifted_string;
+}
+
+char* invert_string(char *string) {
+	int i;
+	char *inverted_string = (char*)malloc(strlen(string));
+
+	for(i = 0; i < strlen(string); i++)
+		inverted_string[i] = string[strlen(string)-1 - i];
+	string[strlen(string)] = '\0';
+
+	return inverted_string;
 }
 
 int* to_number(char *string) {

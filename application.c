@@ -96,27 +96,25 @@ char* to_char(int *numbers, int size) {
 }
 */
 
-/*void char_stream(SWSpecification *swspec /*, int file) {
+void char_stream(SWSpecification *swspec /*, int file*/) {
    int size = strlen(file);
-   char *streaming_char = (char *)malloc(sizeof(char) * (size+1));
-   int *streaming_int = (int *)malloc(sizeof(int) * (size));
+   char *streaming = (char *)malloc(sizeof(char) * (size+1));
 
-   strcpy(straming, file);
+   strcpy(streaming, file);
 
-   if (swspec->encrypt == true) //char ou int
-      streaming_int = encrypt(streaming_char);
+   if (swspec->encrypt == true)
+      streaming = encrypt_caesar_cipher(streaming);
       //prinf("1: %s\n", straming_char);
 
-   if (swspec->shift == true) //char ou int
-      straming_char = shift_string(straming_char);
-      //prinf("1: %s\n", straming_char);
+   if (swspec->shift == true)
+      streaming = shift_string(streaming);
+      //prinf("1: %s\n", straming);
 
-   if (swspec->inverter == true) //char ou int
-      straming_char = invert_string(streaming_char);
-      //prinf("1: %s\n", straming_char);
+   if (swspec->inverter == true)
+      streaming = invert_string(streaming);
+      //prinf("1: %s\n", straming);
 
-   if (swspec->decrypt == true) //int
-      straming_char = decrypt(straming_int, size);
-      //prinf("1: %s\n", straming_char);
+   if (swspec->decrypt == true)
+      streaming = decrypt_caesar_cipher(streaming);
+      //prinf("1: %s\n", straming);
 }
-*/

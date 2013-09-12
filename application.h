@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "specification.h"
+#include "toolbox.h"
 
 #define DENSITY1 1
 #define DENSITY2 2

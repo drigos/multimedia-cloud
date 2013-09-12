@@ -47,10 +47,10 @@ void get_hwspec(HWSpecification *hwspec) {
 
 void get_swspec(SWSpecification *swspec) {
    swspec->type_spec = 2;
-   swspec->converter_to_num = false;   // 1 = verdadeiro e 2 = falso
+   swspec->encrypt = false;   // 1 = verdadeiro e 2 = falso
    swspec->shift = false;              // 1 = verdadeiro e 2 = falso
    swspec->inverter = false;           // 1 = verdadeiro e 2 = falso
-   swspec->converter_to_ascii = true;  // 1 = verdadeiro e 2 = falso
+   swspec->decrypt = true;  // 1 = verdadeiro e 2 = falso
 }
 
 int print_swspec(SWSpecification *swspec) {
@@ -58,10 +58,10 @@ int print_swspec(SWSpecification *swspec) {
 
    printf("Tipo de estrutura: %d\n", swspec->type_spec);
    puts("Capacidades:");
-   printf("   %d : converter_to_num\n"  , swspec->converter_to_num % 2);
+   printf("   %d : encrypt\n"  , swspec->encrypt % 2);
    printf("   %d : shift\n"             , swspec->shift % 2);
    printf("   %d : inverter\n"          , swspec->inverter % 2);
-   printf("   %d : converter_to_ascii\n", swspec->converter_to_ascii % 2);
+   printf("   %d : decrypt\n", swspec->decrypt % 2);
 
    return 0;
 }
@@ -179,10 +179,10 @@ char* serialize_hwspec(char *buffer, HWSpecification *hwspec) {
 
 char* serialize_swspec(char *buffer, SWSpecification *swspec) {
    buffer = serialize_void(buffer, &swspec->type_spec, sizeof(swspec->type_spec));
-   buffer = serialize_void(buffer, &swspec->converter_to_num, sizeof(swspec->converter_to_num));
+   buffer = serialize_void(buffer, &swspec->encrypt, sizeof(swspec->encrypt));
    buffer = serialize_void(buffer, &swspec->shift, sizeof(swspec->shift));
    buffer = serialize_void(buffer, &swspec->inverter, sizeof(swspec->inverter));
-   buffer = serialize_void(buffer, &swspec->converter_to_ascii, sizeof(swspec->converter_to_ascii));
+   buffer = serialize_void(buffer, &swspec->decrypt, sizeof(swspec->decrypt));
    buffer[0] = '\0';
 
    return buffer;
@@ -306,9 +306,9 @@ void deserialize_hwspec(char *buffer, HWSpecification *hwspec) {
 
 void deserialize_swspec(char *buffer, SWSpecification *swspec) {
    buffer = deserialize_void(buffer, &swspec->type_spec, sizeof(swspec->type_spec));
-   buffer = deserialize_void(buffer, &swspec->converter_to_num, sizeof(swspec->converter_to_num));
+   buffer = deserialize_void(buffer, &swspec->encrypt, sizeof(swspec->encrypt));
    buffer = deserialize_void(buffer, &swspec->shift, sizeof(swspec->shift));
    buffer = deserialize_void(buffer, &swspec->inverter, sizeof(swspec->inverter));
-   buffer = deserialize_void(buffer, &swspec->converter_to_ascii, sizeof(swspec->converter_to_ascii));
+   buffer = deserialize_void(buffer, &swspec->decrypt, sizeof(swspec->decrypt));
    buffer[0] = '\0';
 }

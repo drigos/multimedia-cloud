@@ -8,15 +8,15 @@ float frame_time = 0.0000002;
 
 int provision_swspec(SWSpecification *swspec_client, SWSpecification *swspec_provisioned, char *app) {
    if (swspec_client->type_spec != 2) return -1;
-   if (swspec_client->converter_to_ascii != true) return -1;
+   if (swspec_client->decrypt != true) return -1;
 
    swspec_provisioned->type_spec = 2;
-   swspec_provisioned->converter_to_ascii = false;
+   swspec_provisioned->decrypt = false;
 
-   if (swspec_client->converter_to_num == false)
-      swspec_provisioned->converter_to_num = true;
+   if (swspec_client->encrypt == false)
+      swspec_provisioned->encrypt = true;
    else
-      swspec_provisioned->converter_to_num = false;
+      swspec_provisioned->encrypt = false;
 
    if (swspec_client->shift == false)
       swspec_provisioned->shift = true;

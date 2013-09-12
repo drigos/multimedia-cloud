@@ -84,15 +84,18 @@ int main(void) {
 
       // Fim do Three-Way
 
+         // Verificando se é o reconhecimento
          if (buffer_recv[0] == ACK) {
             //se for recebido o ACK, preenche Tabela de Controle
             //envia aplicação - cria aqui as threads
          }
       }
 
+      // Fecha atual socket do cliente
       close(socket_client);
    }
    
+   // Não estão funcionando pois acima tem um loop infinito [arrumar]
    close(socket_server);
    free(hwspec_client);
    free(hwspec_provisioned);

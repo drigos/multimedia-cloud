@@ -9,7 +9,6 @@
 #define PORT_CONNECT 30000
 
 int main(void) {
-   //char text_lower[100], text_upper[100];
    int socket_client;                   // descritores de sockets
    char buffer_recv[MAXDATASIZE];       // string recebida
    char buffer_send[MAXDATASIZE];       // string que será enviada
@@ -19,8 +18,6 @@ int main(void) {
    SWSpecification *swspec_provisioned; // armazena software provisionado
    char string_spec[100];               // serialização das estruturas de especificação
    int error;
-   //int flag;
-//   int i = 0;
 
    // Alocando memória para as estruturas de especificação
    hwspec_client = (HWSpecification *)malloc(sizeof(HWSpecification));
@@ -63,9 +60,11 @@ int main(void) {
       print_swspec(swspec_provisioned);
       puts("");
 
+      // Criando mensagem de reconhecimento
       ack_create(buffer_send);
       send_socket(socket_client, buffer_send);
    }
+   // Verificando se o provisionamento foi negado
    else if (buffer_recv[0] == NACK) {
       error = nack_remove(buffer_recv);
       printf("Recebido NACK, erro: %d\n", error);
@@ -73,6 +72,7 @@ int main(void) {
 
    // Fim do Three-Way
 
+   // Lipando a memória
    close(socket_client);
    free(hwspec_client);
    free(hwspec_provisioned);

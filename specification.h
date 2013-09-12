@@ -1,8 +1,12 @@
 #ifndef _SPECIFICATION_H_
 #define _SPECIFICATION_H_
 
+#include <stdio.h>
+#include <string.h>
 #include <inttypes.h>
+#include "toolbox.h"
 
+// Estrutura com especificações de hardware
 typedef struct hw_specification {
    unsigned int mips;
    long int lint;
@@ -12,6 +16,7 @@ typedef struct hw_specification {
    char string[100];
 } HWSpecification;
 
+// Estrutura com especificações de software
 typedef struct sw_specification {
    uint8_t type_spec;
    uint8_t converter_to_num;
@@ -19,13 +24,6 @@ typedef struct sw_specification {
    uint8_t inverter;
    uint8_t converter_to_ascii;
 } SWSpecification;
-
-/*
-typedef struct specification {
-   int type;   // indica quais campos estão contidos na struct e deve ser o primeiro elemento
-   int mips;   // representa as unidades de processamento (didático)
-} Specification;
-*/
 
 // Preenche uma struct HWSpecification com informações do dispositivo
 // Recebe como parâmetro um ponteiro HWSpecification

@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <time.h>
+#include "toolbox.h"
 
 // Imprime um número em binário
 void bprint(long int var, int size) {

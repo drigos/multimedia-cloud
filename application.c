@@ -16,13 +16,25 @@ char to_lower_case(char letter) {
    return letter;
 }
 
-int* to_number(char *letter) {
+int* to_number(char *string) {
 	int i;
-	int *numbers = (int*)malloc(sizeof(int) * strlen(letter));
+	int *numbers = (int*)malloc(sizeof(int) * strlen(string));
 
-	for(i = 0; i < strlen(letter); i++){
-		numbers[i] = (int)letter[i];
+	for(i = 0; i < strlen(string); i++){
+		numbers[i] = (int)string[i];
 	}
 
 	return numbers;
+}
+
+char* to_char(int *numbers, int size) {
+	int i;
+	char *string = (char*)malloc(sizeof(char) * size);
+
+	for(i = 0; i < size; i++){
+		string[i] = (char)numbers[i];
+	}
+	string[size] = '\0';
+
+	return string;
 }

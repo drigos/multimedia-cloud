@@ -20,4 +20,6 @@ char to_lower_case(char letter);
 
 int* to_number(char *letter);
 
+char* to_char(int *numbers, int size);
+
 #endif

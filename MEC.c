@@ -10,6 +10,8 @@
 #define PORT_LISTEN 30000
 #define BACKLOG 50
 
+char file[] = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.";// Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.";
+
 int main(void) {
    int socket_server, socket_client;    // descritores de sockets
    char buffer_recv[MAXDATASIZE];       // string recebida
@@ -79,7 +81,7 @@ int main(void) {
 
          //dispara prefetch
 
-         // Aguardando recomhecimento
+         // Aguardando reconhecimento
          recv_socket(socket_client, buffer_recv);
 
       // Fim do Three-Way
@@ -88,6 +90,9 @@ int main(void) {
          if (buffer_recv[0] == ACK) {
             //se for recebido o ACK, preenche Tabela de Controle
             //envia aplicação - cria aqui as threads
+            char_stream(buffer_send, swspec_provisioned, file);
+            send_socket(socket_client, buffer_send);
+            printf("\nMensagem enviada: %s\n", buffer_send);
          }
       }
 

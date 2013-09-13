@@ -16,29 +16,42 @@ char to_lower_case(char letter) {
    return letter;
 }
 
-char* shift_string(char *string) {
-	int i;
-	char *shifted_string = (char*)malloc(strlen(string));
-
-	for(i = 0; i < strlen(string); i++)
-		shifted_string[i] = to_upper_case(string[i]);
-	string[strlen(string)] = '\0';
-
-	return shifted_string;
+void shift_string(char *string) {
+   int i;
+   for(i = 0; i < strlen(string); i++)
+      string[i] = to_upper_case(string[i]);
 }
 
-char* invert_string(char *string) {
-	int i;
-	char *inverted_string = (char*)malloc(strlen(string));
-
-	for(i = 0; i < strlen(string); i++)
-		inverted_string[i] = string[strlen(string)-1 - i];
-	string[strlen(string)] = '\0';
-
-	return inverted_string;
+void invert_string(char *string) {
+   int i;
+   for(i = 0; i < strlen(string)/2; i++) {
+      char temp = string[i];
+      string[i] = string[strlen(string)-1 - i];
+      string[strlen(string)-1 - i] = temp;
+   }
 }
 
-int* to_number(char *string) {
+void encrypt_caesar_cipher(char *string) {
+   int i;
+   for(i = 0; i < strlen(string); i++) {
+      if (string[i] >= 97 && string[i] <= 122)
+         string[i] = 97 + ((string[i]-97 + 3)%26 + 26)%26;
+      else if (string[i] >= 65 && string[i] <= 90)
+         string[i] = 65 + ((string[i]-65 + 3)%26 + 26)%26;
+   }
+}
+
+void decrypt_caesar_cipher(char *string) {
+   int i;      
+   for(i = 0; i < strlen(string); i++) {
+      if (string[i] >= 97 && string[i] <= 122)
+         string[i] = 97 + ((string[i]-97 - 3)%26 + 26)%26;
+      else if (string[i] >= 65 && string[i] <= 90)
+         string[i] = 65 + ((string[i]-65 - 3)%26 + 26)%26;
+   }
+}
+
+/*int* to_number(char *string) {
 	int i;
 	int *numbers = (int*)malloc(sizeof(int) * strlen(string));
 
@@ -57,4 +70,31 @@ char* to_char(int *numbers, int size) {
 	string[size] = '\0';
 
 	return string;
+}
+*/
+
+void char_stream(char *buffer, SWSpecification *swspec, char *text) {
+   int size = strlen(text);
+   //char *streaming = (char *)malloc(sizeof(char) * (size+1));
+
+   strcpy(buffer, text);
+
+   if (swspec->encrypt == true) {
+      encrypt_caesar_cipher(buffer);
+      printf("encrypt:  %s\n", buffer);
+   }
+   if (swspec->shift == true) {
+      shift_string(buffer);
+      printf("shift:    %s\n", buffer);
+   }
+
+   if (swspec->inverter == true) {
+      invert_string(buffer);
+      printf("inverter: %s\n", buffer);
+   }
+
+   if (swspec->decrypt == true) {
+      decrypt_caesar_cipher(buffer);
+      printf("decrypt:  %s\n", buffer);
+   }
 }

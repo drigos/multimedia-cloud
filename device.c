@@ -63,6 +63,12 @@ int main(void) {
       // Criando mensagem de reconhecimento
       ack_create(buffer_send);
       send_socket(socket_client, buffer_send);
+
+      recv_socket(socket_client, buffer_recv);
+      printf("Mensagem recebida:   %s\n\n", buffer_recv);
+
+      char_stream(buffer_recv, swspec_client, buffer_recv);
+      printf("\nMensagem processada: %s\n", buffer_recv);
    }
    // Verificando se o provisionamento foi negado
    else if (buffer_recv[0] == NACK) {

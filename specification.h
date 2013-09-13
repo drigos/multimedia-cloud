@@ -19,10 +19,10 @@ typedef struct hw_specification {
 // Estrutura com especificações de software
 typedef struct sw_specification {
    uint8_t type_spec;
-   uint8_t converter_to_num;
+   uint8_t encrypt;
    uint8_t shift;
    uint8_t inverter;
-   uint8_t converter_to_ascii;
+   uint8_t decrypt;
 } SWSpecification;
 
 // Preenche uma struct HWSpecification com informações do dispositivo

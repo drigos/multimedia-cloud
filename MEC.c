@@ -10,7 +10,12 @@
 #define PORT_LISTEN 30000
 #define BACKLOG 50
 
-char file[] = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.";// Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.";
+// Pangrama inglês usado para testar a aplicação
+char file[] = "The quick brown fox jumps over the lazy dog.";
+// Pangrama português usado para testar a aplicação
+//char file[] = "Um pequeno jabuti xereta viu dez cegonhas felizes"
+// "Não há ninguém que ame a dor por si só, que a busque e queira tê-la, simplesmente por ser dor..."
+//char file[] = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..." 
 
 int main(void) {
    int socket_server, socket_client;    // descritores de sockets
@@ -90,6 +95,7 @@ int main(void) {
          if (buffer_recv[0] == ACK) {
             //se for recebido o ACK, preenche Tabela de Controle
             //envia aplicação - cria aqui as threads
+            printf("Mensagem original: %s\n\n", file);
             char_stream(buffer_send, swspec_provisioned, file);
             send_socket(socket_client, buffer_send);
             printf("\nMensagem enviada: %s\n", buffer_send);

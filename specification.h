@@ -9,7 +9,7 @@
 // Estrutura com especificações de hardware
 typedef struct hw_specification {
    unsigned int mips;
-   long int lint;
+   //long int lint;
    int nint;
    short int sint;
    unsigned char uchar;

@@ -5,7 +5,7 @@ void get_hwspec(HWSpecification *hwspec) {
    // hwspec->mips = 51450129; //Cenario 2
    hwspec->mips = 16843009; //Cenario 3
 
-   hwspec->lint = 4702394921427289928;
+   //hwspec->lint = 4702394921427289928;
    /*
    01000001 01000010 01000011 01000100 01000101 01000110 01000111 01001000 - em oporação
    01001000 01000111 01000110 01000101 01000100 01000011 01000010 01000001 - na memória (invertido)
@@ -45,7 +45,7 @@ void get_swspec(SWSpecification *swspec) {
 
    // true  - indica capacidade de executari a tarefa
    // false - indica incapacidade de executar a tarefa
-   swspec->encrypt = false;
+   swspec->encrypt = true;
    swspec->shift = false;
    swspec->inverter = true;
    swspec->decrypt = true;
@@ -163,7 +163,7 @@ char* serialize_string(char *buffer, char *string) {
 
 char* serialize_hwspec(char *buffer, HWSpecification *hwspec) {
    buffer = serialize_void(buffer, &hwspec->mips, sizeof(hwspec->mips));
-   buffer = serialize_void(buffer, &hwspec->lint, sizeof(hwspec->lint));
+   //buffer = serialize_void(buffer, &hwspec->lint, sizeof(hwspec->lint));
    buffer = serialize_void(buffer, &hwspec->nint, sizeof(hwspec->nint));
    buffer = serialize_void(buffer, &hwspec->sint, sizeof(hwspec->sint));
    buffer = serialize_void(buffer, &hwspec->uchar, sizeof(hwspec->uchar));
@@ -292,7 +292,7 @@ char* deserialize_void(char *buffer, void *value, int size) {
 
 void deserialize_hwspec(char *buffer, HWSpecification *hwspec) {
    buffer = deserialize_void(buffer, &hwspec->mips, sizeof(hwspec->mips));
-   buffer = deserialize_void(buffer, &hwspec->lint, sizeof(hwspec->lint));
+   //buffer = deserialize_void(buffer, &hwspec->lint, sizeof(hwspec->lint));
    buffer = deserialize_void(buffer, &hwspec->nint, sizeof(hwspec->nint));
    buffer = deserialize_void(buffer, &hwspec->sint, sizeof(hwspec->sint));
    buffer = deserialize_void(buffer, &hwspec->uchar, sizeof(hwspec->uchar));

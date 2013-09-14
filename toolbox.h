@@ -14,9 +14,9 @@ enum bool {
 };
 
 // Imprime um número em binário
-void bprint(long int var, int size);
+void bprint(long int, int);
 
 // Obtém um número aleatório entre min e max
-int get_rand(int min, int max);
+int get_rand(int, int);
 
 #endif

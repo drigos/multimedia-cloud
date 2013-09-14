@@ -19,24 +19,24 @@
 
 // Converte uma letra minúscula para maiúscula
 // Outros caracteres retornam inalterados
-char to_upper_case(char letter);
+char to_upper_case(char);
 
 // Converte uma letra maiúscula para minúscula
 // Outros caracteres retornam inalterados
-char to_lower_case(char letter);
+char to_lower_case(char);
 
 // Converte as letras minúsculas da string para maiúsculas
 // Outros caracteres retornam inalterados
-void shift_string(char *string);
+void shift_string(char *);
 
 // Recebe uma string e a retorna de trás para frente
-void invert_string(char *string);
+void invert_string(char *);
 
 // Criptografa um texto com a Cifra de César
-void encrypt_caesar_cipher(char *string);
+void encrypt_caesar_cipher(char *);
 
 // Decriptografa um texto com a Cifra de César
-void decrypt_caesar_cipher(char *string);
+void decrypt_caesar_cipher(char *);
 
 // Aplicação que usa:
 //    encrypt_caesar_cipher()
@@ -48,6 +48,6 @@ void decrypt_caesar_cipher(char *string);
 //    uma estrutura com as capacidades de execução de host
 //    uma string a ser manipulada
 // Retorno void
-void char_stream(char *buffer, SWSpecification *swspec, char *text);
+void char_stream(char *, SWSpecification *, char *);
 
 #endif

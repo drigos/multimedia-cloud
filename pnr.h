@@ -17,26 +17,26 @@
 #define INSUFFICIENT_RESOURCE 2
 
 // Cria string com as informações recebidas pelos parâmetros ou implícitas
-void request_create(char *buffer, short int id_app, char *spec, char *option);
+void request_create(char *, short int, char *, char *);
 
 // Cria string com as informações recebida pelos parâmetros ou implícitas
-void response_create(char *buffer, char *spec);
+void response_create(char *, char *);
 
 // Cria string com as informações recebida pelos parâmetros ou implícitas
-void ack_create(char *buffer);
+void ack_create(char *);
 
 // Cria string com as informações recebida pelos parâmetros ou implícitas
-void nack_create(char *buffer, uint8_t error);
+void nack_create(char *, uint8_t);
 
 // Remove as informações da string e armazena nas variáveis recebidas como parâmetro
-int request_remove(char *buffer, short int *id_app, char *spec, char *option);
+int request_remove(char *, short int *, char *, char *);
 
 // Remove as informações da string e armazena nas variáveis recebidas como parâmetro
-int response_remove(char *buffer, char *spec);
+int response_remove(char *, char *);
 
-//int ack_remove(char *buffer);
+//int ack_remove(char *);
 
 // Remove as informações da string e armazena nas variáveis recebidas como parâmetro
-int nack_remove(char *buffer);
+int nack_remove(char *);
 
 #endif

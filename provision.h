@@ -5,9 +5,9 @@
 #include "toolbox.h"
 
 // Algoritmo para provisionar recursos baseado nas caractirísticas de software do cliente
-int provision_swspec(SWSpecification *swspec_client, SWSpecification *swspec_provisioned, char *app);
+int provision_swspec(SWSpecification *, SWSpecification *, char *);
 
 // Algoritmo para provisionar recursos baseado nas caractirísticas de hardware do cliente
-void provision_alg(HWSpecification *hwspec_client, HWSpecification *hwspec_provisioned, char *application);
+void provision_alg(HWSpecification *, HWSpecification *, char *);
 
 #endif

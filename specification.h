@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
+#include "socket.h"
 #include "toolbox.h"
 
 // Estrutura com especificações de hardware
@@ -40,24 +41,6 @@ void get_swspec(SWSpecification *);
 // Rertorno -1 no caso de erros
 int print_swspec(SWSpecification *);
 
-// Serializa tipo primitivo genérico para o buffer
-// Recebe como parâmetro
-//    um tipo genérico (ponteiro)
-//    o tamanho do tipo
-//    o endereço onde deve armazenar o resultado
-// Retorna o próximo endereço disponível do buffer
-char* serialize_void(char *, const void *, int);
-
-//char* serialize_array(char *buffer, void *array, int size_type);
-
-// Serializa uma string para o buffer
-// Chama serialize_void() para cada caracter da string
-// Recebe como parâmetro
-//    uma array de caracteres
-//    o endereço onde deve armazenar o resultado
-// Retorna o próximo endereço disponível do buffer
-char* serialize_string(char *, char *);
-
 // Serializa um struct HWSpecification
 // Recebe como parâmetro
 //    o ponteiro da struct
@@ -71,16 +54,6 @@ char* serialize_hwspec(char *, HWSpecification *);
 //    o ponteiro do buffer
 // Retorna o próximo endereço disponível do buffer
 char* serialize_swspec(char *, SWSpecification *);
-
-// Deserializa informação do buffer para um tipo primitivo genérico
-// Recebe como parâmetro
-//    um tipo genérico para ser preenchido (ponteiro)
-//    o tamanho do tipo
-//    o endereço onde está armazenada a informação
-// Retorna o próximo endereço do buffer a ser verificado
-char* deserialize_void(char *, void *, int);
-
-//char* deserialize_string(char *buffer, char *string);
 
 // Deserializa um struct HWSpecification
 // Recebe como parâmetro
